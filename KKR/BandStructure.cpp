@@ -61,7 +61,7 @@ namespace KKR
 		std::launch launchType = options.nrThreads == 1 ? std::launch::deferred : std::launch::async;
 
 		int startPos = 0;
-		int step = numIntervals / options.nrThreads;
+		int step = ceil(static_cast<double>(numIntervals) / options.nrThreads);
 		if (step < 1) step = 1;
 		int nextPos;
 
@@ -70,6 +70,8 @@ namespace KKR
 		{
 			if (t == options.nrThreads - 1) nextPos = numIntervals;
 			else nextPos = startPos + step;
+
+			if (nextPos > numIntervals) nextPos = numIntervals;
 
 			tasks[t] = std::async(launchType, [this, &potential, numerovGridNodes, &ratios, startPos, nextPos, minE, dE, lMax, numerovIntervals, deltaGrid, &terminate]()->void
 				{
