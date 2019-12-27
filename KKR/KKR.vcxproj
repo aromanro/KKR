@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{B24FD300-FF21-41DC-BA2A-B024055A3B39}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>KKR</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\LIBs\boost_1_72_0;C:\wxWidgets-3.0.4\include\msvc;C:\wxWidgets-3.0.4\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VC_IncludePath);C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath);$(WindowsSDK_IncludePath)include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(VCInstallDir)PlatformSDK\common\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include;C:\Program Files (x86)\Java\jdk1.6.0_20\include;C:\Program Files (x86)\Java\jdk1.6.0_20\include\win32</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\VTK\lib;C:\wxWidgets-3.0.4\lib\vc_lib;$(VCInstallDir)PlatformSDK\lib;$(VCInstallDir)PlatformSDK\common\lib;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86;C:\Program Files (x86)\Business Objects\Common\3.5;C:\LIBs\JetVC\Intel;C:\LIBs\boost_1_44_0\stage\lib;C:\Program Files (x86)\Java\jdk1.6.0_20\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>C:\Program Files\VTK\bin;$(VCInstallDir)PlatformSDK\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\LIBs\boost_1_72_0;C:\wxWidgets-3.0.4\include\msvc;C:\wxWidgets-3.0.4\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VCInstallDir)PlatformSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\VTK\lib;C:\wxWidgets-3.0.4\lib\vc_x64_lib;$(VCInstallDir)PlatformSDK\lib\amd64;$(VSInstallDir)SDK\v2.0\lib\amd64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\LIBs\boost_1_72_0;C:\wxWidgets-3.0.4\include\msvc;C:\wxWidgets-3.0.4\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VC_IncludePath);C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath);$(WindowsSDK_IncludePath)include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(VCInstallDir)PlatformSDK\common\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include;C:\Program Files (x86)\Java\jdk1.6.0_20\include;C:\Program Files (x86)\Java\jdk1.6.0_20\include\win32</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\VTK\lib;C:\wxWidgets-3.0.4\lib\vc_lib;$(VCInstallDir)PlatformSDK\lib;$(VCInstallDir)PlatformSDK\common\lib;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86;C:\Program Files (x86)\Business Objects\Common\3.5;C:\LIBs\JetVC\Intel;C:\LIBs\boost_1_44_0\stage\lib;C:\Program Files (x86)\Java\jdk1.6.0_20\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>C:\Program Files\VTK\bin;$(VCInstallDir)PlatformSDK\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\LIBs\boost_1_72_0;C:\wxWidgets-3.0.4\include\msvc;C:\wxWidgets-3.0.4\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VCInstallDir)PlatformSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\VTK\lib;C:\wxWidgets-3.0.4\lib\vc_x64_lib;$(VCInstallDir)PlatformSDK\lib\amd64;$(VSInstallDir)SDK\v2.0\lib\amd64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;__WXMSW__;_WINDOWS;wxUSE_GUI=1;NOPCH;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxmsw30ud_core.lib;wxbase30ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;__WXMSW__;_WINDOWS;wxUSE_GUI=1;NOPCH;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxmsw30ud_core.lib;wxbase30ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;NOPCH;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxmsw30u_core.lib;wxbase30u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;NOPCH;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wxmsw30u_core.lib;wxbase30u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BandStructure.cpp" />
+    <ClCompile Include="BandStructureBasis.cpp" />
+    <ClCompile Include="ChemUtils.cpp" />
+    <ClCompile Include="Coefficients.cpp" />
+    <ClCompile Include="KKRApp.cpp" />
+    <ClCompile Include="KKRFrame.cpp" />
+    <ClCompile Include="KKRThread.cpp" />
+    <ClCompile Include="Options.cpp" />
+    <ClCompile Include="OptionsFrame.cpp" />
+    <ClCompile Include="Pseudopotential.cpp" />
+    <ClCompile Include="SymmetryPoints.cpp" />
+    <ClCompile Include="wxVTKRenderWindowInteractor.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BandStructure.h" />
+    <ClInclude Include="BandStructureBasis.h" />
+    <ClInclude Include="ChemUtils.h" />
+    <ClInclude Include="Coefficients.h" />
+    <ClInclude Include="KKRApp.h" />
+    <ClInclude Include="KKRFrame.h" />
+    <ClInclude Include="KKRThread.h" />
+    <ClInclude Include="Lambda.h" />
+    <ClInclude Include="Numerov.h" />
+    <ClInclude Include="Options.h" />
+    <ClInclude Include="OptionsFrame.h" />
+    <ClInclude Include="Pseudopotential.h" />
+    <ClInclude Include="SpecialFunctions.h" />
+    <ClInclude Include="SymmetryPoints.h" />
+    <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="wxVTKRenderWindowInteractor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Vector3D.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
