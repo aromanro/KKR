@@ -74,6 +74,51 @@ namespace KKR
 			const std::complex<double> iL = std::pow(I, L);
 			const double EpEta = 2. * E / eta;
 
+
+			/*
+
+			// this is an example of how it's done in Kohn and Rostoker paper
+			// without the full Ewald summation
+			// you don't need the real space vectors anymore
+			// but more vectors are needed in reciprocal space
+			// so comment out the GenerateBasisVectorsMaxSize(3, 1) line in BandStructureBasis
+			// and uncomment one that generates more vectors, like GenerateBasisVectorsMaxSize(8, 3) or higher
+			// the convergence is not very good especially for big energies
+			// I didn't play enough with this, so eta is probably far from optimum
+			// it also probably interferes with the code that tries to avoid spurious results due of singularities and so on
+
+
+			std::complex<double> D(0, 0);
+			for (const auto& Kn : m_basisVectors)
+			{
+				const Vector3D<double> kn = Kn + k;
+				const double kn2 = kn * kn;
+				const double kn_length = sqrt(kn2);
+				const double Eminuskn2 = 2. * E - kn2;
+
+				const double theta = kn.getTheta();
+				const double phi = kn.getPhi();
+
+				const std::complex<double> Y = SpecialFunctions::Legendre::Y(L, M, theta, phi);
+
+				D += SpecialFunctions::Bessel::j(L, kn_length * m_R) / Eminuskn2 * Y * std::exp(Eminuskn2 / 5000.);
+			}
+			
+			const std::complex<double> kappaR = kappa * m_R;
+			
+			D *= 4. * M_PI / (m_cellVolume * SpecialFunctions::Bessel::j(L, kappaR));
+
+			if (0 == L)
+			{
+				assert(0 == M);
+
+				D += kappa / (4. * M_PI * std::tan(kappaR));
+			}
+
+			return D;
+
+			*/
+
 			// The three terms for Ewald summation:
 
 			// **************** first term ******************************************************************************************
