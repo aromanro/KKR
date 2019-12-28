@@ -1,10 +1,5 @@
 #pragma once
 
-// the referred formulae are from the book
-// Computational Physics by J M Thijssen
-// isbn: 9780521833462, https://doi.org/10.1017/CBO9781139171397
-
-
 #define _USE_MATH_DEFINES
 //#include <math.h>
 
@@ -22,184 +17,107 @@ namespace SpecialFunctions
 	// I first implemented the code directly with them
 	// I'll let them here commented out
 
+	class SpecialFunctions
+	{
+	protected:
 
-	class Bessel
+		template<typename T> static T GetRecursiveValue(unsigned int l, const T& x, T& v0, T& v1)
+		{
+			if (0 == l) return v0;
+			else if (1 == l) return v1;
+
+			for (unsigned int i = 2; i <= l; ++i)
+			{
+				const T v2 = (2. * i - 1.) / x * v1 - v0;
+
+				v0 = v1;
+				v1 = v2;
+			}
+
+			return v1;
+		}
+
+	};
+
+	class Bessel : public SpecialFunctions
 	{
 	public:
-		static double j(unsigned int l, double x)
+		template<typename T> static T j(unsigned int l, const T& x)
 		{
-#ifdef USE_BETTER_BESSEL
-			return std::sph_bessel(l, x);
-#else
-			/*
-			if (0 == l) return j0(x);
-			else if (1 == l) return j1(x);
+			const T sinxx = sin(x) / x;
+			const T cosxx = (0 == l) ? 0. : cos(x) / x;
 
-			return (2. * l - 1.) / x * j(l - 1, x) - j(l - 2, x);
-			*/
+			T j0 = sinxx;
+			T j1 = (0 == l) ? 0. : sinxx / x - cosxx;
 
-			if (0 == l) return sin(x) / x;
-			else if (1 == l) return  sin(x) / (x * x) - cos(x) / x;
-
-			const double sinxx = sin(x) / x;
-			const double cosxx = cos(x) / x;
-
-			double j0 = sinxx;
-			double j1 = sinxx / x - cosxx;
-
-			for (unsigned int i = 2; i <= l; ++i)
-			{
-				const double j2 = (2. * i - 1.) / x * j1 - j0;
-
-				j0 = j1;
-				j1 = j2;
-			}
-
-			return j1;
-#endif
+			return GetRecursiveValue(l, x, j0, j1);
 		}
 
-		static std::complex<double> j(unsigned int l, std::complex<double> x)
+		template<typename T> static T jderiv(unsigned int l, const T& x)
 		{
-			if (0 == l) return sin(x) / x;
-			else if (1 == l) return  sin(x) / (x * x) - cos(x) / x;
-
-			const std::complex<double> sinxx = sin(x) / x;
-			const std::complex<double> cosxx = cos(x) / x;
-
-			std::complex<double> j0 = sinxx;
-			std::complex<double> j1 = sinxx / x - cosxx;
-
-			for (unsigned int i = 2; i <= l; ++i)
-			{
-				const std::complex<double> j2 = (2. * i - 1.) / x * j1 - j0;
-
-				j0 = j1;
-				j1 = j2;
-			}
-
-			return j1;
-		}
-
-		template<typename T> static T jderiv(unsigned int l, T x)
-		{
-			return T(l) / x * j(l, x) - j(l + 1, x);
 			//return (j(l, x) - j(l, x - .00001)) / 0.00001;
+			
+			//return T(l) / x * j(l, x) - j(l + 1, x);
+
+			// the above formula is ok, but this gets in one calculation both values needed for the derivative
+			const T sinxx = sin(x) / x;
+			const T cosxx = cos(x) / x;
+
+			T j0 = sinxx;
+			T j1 = sinxx / x - cosxx;
+
+			GetRecursiveValue(l + 1, x, j0, j1);
+
+			return T(l) / x * j0 - j1;
 		}
 
-
-
-		static double n(unsigned int l, double x)
+		template<typename T> static T n(unsigned int l, const T& x)
 		{
-#ifdef USE_BETTER_BESSEL
-			return std::sph_neumann(l, x);
-#else
-			/*
-			if (0 == l) return n0(x);
-			else if (1 == l) return n1(x);
+			const T cosxx = cos(x) / x;
+			const T sinxx = (0 == l) ? 0. : sin(x) / x;
 
-			return (2. * l - 1.) / x * n(l - 1, x) - n(l - 2, x);
-			*/
+			T n0 = -cosxx;
+			T n1 = (0 == l) ? 0. : -cosxx / x - sinxx;
 
-			if (0 == l) return -cos(x) / x;
-			else if (1 == l) return -cos(x) / (x * x) - sin(x) / x;
-
-			const double sinxx = sin(x) / x;
-			const double cosxx = cos(x) / x;
-
-			double n0 = -cosxx;
-			double n1 = -cosxx / x - sinxx;
-
-			for (unsigned int i = 2; i <= l; ++i)
-			{
-				const double n2 = (2. * i - 1.) / x * n1 - n0;
-
-				n0 = n1;
-				n1 = n2;
-			}
-
-			return n1;
-#endif
+			return GetRecursiveValue(l, x, n0, n1);
 		}
 
-		static std::complex<double> n(unsigned int l, std::complex<double> x)
+		template<typename T> static T nderiv(unsigned int l, const T& x)
 		{
-			if (0 == l) return -cos(x) / x;
-			else if (1 == l) return -cos(x) / (x * x) - sin(x) / x;
-
-			const std::complex<double> sinxx = sin(x) / x;
-			const std::complex<double> cosxx = cos(x) / x;
-
-			std::complex<double> n0 = -cosxx;
-			std::complex<double> n1 = -cosxx / x - sinxx;
-
-			for (unsigned int i = 2; i <= l; ++i)
-			{
-				const std::complex<double> n2 = (2. * i - 1.) / x * n1 - n0;
-
-				n0 = n1;
-				n1 = n2;
-			}
-
-			return n1;
-		}
-
-		template<typename T> static T nderiv(unsigned int l, T x)
-		{
-			return T(l) / x * n(l, x) - n(l + 1, x);
 			//return (n(l, x) - n(l, x - .00001)) / 0.00001;
+			
+			//return T(l) / x * n(l, x) - n(l + 1, x);
+
+			// the above formula is ok, but this gets in one calculation both values needed for the derivative
+			const T cosxx = cos(x) / x;
+			const T sinxx = sin(x) / x;
+
+			T n0 = -cosxx;
+			T n1 = -cosxx / x - sinxx;
+
+			GetRecursiveValue(l + 1, x, n0, n1);
+
+			return T(l) / x * n0 - n1;
 		}
-
-
-		/*
-		protected:
-			inline static double j0(double x) { return sin(x) / x; }
-			inline static double j1(double x) { return sin(x) / (x * x) - cos(x) / x; }
-
-			inline static double n0(double x) { return -cos(x) / x; }
-			inline static double n1(double x) { return -cos(x) / (x * x) - sin(x) / x; }
-		*/
 	};
 
 	// Legendre polynomials
 	class Legendre
 	{
 	public:
-		static double p(unsigned int l, double x)
+		template<typename T> static T p(unsigned int l, const T& x)
 		{
-#ifdef USE_BETTER_LEGENDRE
-			return std::legendre(l, x);
-#else
 			if (0 == l) return 1.;
 			else if (1 == l) return x;
 
 			//return ((2. * l - 1.) * x * p(l - 1, x) - (l - 1) * p(l - 2, x)) / l;
 
-			double p0 = 1.;
-			double p1 = x;
+			T p0 = 1.;
+			T p1 = x;
 
 			for (unsigned int i = 2; i <= l; ++i)
 			{
-				const double p2 = ((2. * i - 1.) * x * p1 - (i - 1.) * p0) / i;
-				p0 = p1;
-				p1 = p2;
-			}
-
-			return p1;
-#endif
-		}
-
-		static std::complex<double> p(unsigned int l, std::complex<double> x)
-		{
-			if (0 == l) return 1.;
-			else if (1 == l) return x;
-
-			std::complex<double> p0 = 1.;
-			std::complex<double> p1 = x;
-
-			for (unsigned int i = 2; i <= l; ++i)
-			{
-				const std::complex<double> p2 = ((2. * i - 1.) * x * p1 - (i - 1.) * p0) / static_cast<double>(i);
+				const std::complex<double> p2 = ((2. * i - 1.) * x * p1 - (i - 1.) * p0) / T(i);
 				p0 = p1;
 				p1 = p2;
 			}
@@ -207,7 +125,7 @@ namespace SpecialFunctions
 			return p1;
 		}
 
-		template<typename T> static T pderiv(unsigned int l, T x)
+		template<typename T> static T pderiv(unsigned int l, const T& x)
 		{
 			return -1 / sqrt(1 - x * x) * p(l, x);
 		}
