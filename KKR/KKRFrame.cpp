@@ -176,7 +176,7 @@ void KKRFrame::ConfigureVTK(const std::string& name, const std::vector<std::vect
 	{
 		vtkPlot* points = pChart->AddPlot(vtkChart::POINTS);
 		points->SetInputData(table.GetPointer(), 0, i + 1LL);
-		points->SetColor(255, 0, 0, 255);
+		points->SetColor(0, 0, 255, 255);
 		points->SetWidth(1.0);
 		dynamic_cast<vtkPlotPoints*>(points)->SetMarkerStyle(vtkPlotPoints::CIRCLE);
 	}

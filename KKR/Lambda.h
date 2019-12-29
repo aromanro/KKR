@@ -29,7 +29,7 @@ namespace KKR
 		}
 
 		bool IsCloseToPole(double E, const Vector3D<double>& k, double limit, const std::vector<double>& ratios, double limit2 = 1E-10) const
-		{
+		{			
 			// singular points of the free Green function:
 
 			for (const auto& Kn : m_basisVectors)
