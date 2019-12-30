@@ -279,7 +279,7 @@ void KKRFrame::OnClose(wxCloseEvent& event)
 {
 	StopThreads(true);
 
-	Close(true);
+	event.Skip();
 }
 
 
