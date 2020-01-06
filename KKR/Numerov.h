@@ -60,6 +60,11 @@ namespace KKR {
 		{
 			return value;
 		}
+
+		inline static bool IsUniform()
+		{
+			return true;
+		}
 	protected:
 
 		const Potential& m_pot;
@@ -167,6 +172,11 @@ namespace KKR {
 
 		inline double GetRp() const { return Rp; }
 		inline double GetDelta() const { return m_delta; }
+
+		inline static bool IsUniform()
+		{
+			return false;
+		}
 	protected:
 		inline double GetPosition(size_t posIndex) const
 		{
@@ -193,16 +203,7 @@ namespace KKR {
 
 		inline double SolveSchrodinger(double endPoint, unsigned int l, double E, long int steps)
 		{
-			if (endPoint == steps)
-			{
-				h = 1;
-				h2 = 1;
-				h2p12 = 1. / 12.;
-
-				endPoint = std::min(endPoint, function.GetMaxRadiusIndex(E, steps, 1));
-				steps = static_cast<long int>(endPoint);
-			}
-			else
+			if (NumerovFunction::IsUniform())
 			{
 				h = endPoint / steps;
 				h2 = h * h;
@@ -211,7 +212,15 @@ namespace KKR {
 				endPoint = std::min(endPoint, function.GetMaxRadius(E, steps));
 				steps = static_cast<long int>(endPoint / h);
 			}
+			else
+			{
+				h = 1;
+				h2 = 1;
+				h2p12 = 1. / 12.;
 
+				endPoint = std::min(endPoint, function.GetMaxRadiusIndex(E, steps, 1));
+				steps = static_cast<long int>(endPoint);
+			}
 
 			double position = 0;
 			double prevSol = 0;
