@@ -70,7 +70,6 @@ KKRFrame::KKRFrame(const wxString& title, const wxPoint& pos, const wxSize& size
 	std::vector<std::string> empty_strings;
 	ConfigureVTK("", empty_results, empty_pos, empty_strings);
 
-	currentOptions.Open();
 	currentOptions.Load();
 }
 
@@ -101,8 +100,6 @@ void KKRFrame::DestroyVTK()
 	if (pChart) pChart->Delete();
 	if (pRenderer) pRenderer->Delete();
 	if (pContextView) pContextView->Delete();
-
-	currentOptions.Close();
 }
 
 
@@ -219,9 +216,7 @@ void KKRFrame::OnOptions(wxCommandEvent& /*event*/)
 	optionsFrame->options = currentOptions;
 	if (wxID_OK == optionsFrame->ShowModal())
 	{
-		currentOptions.Close();
 		currentOptions = optionsFrame->options;
-		currentOptions.Open();
 		currentOptions.Save();
 	}
 

@@ -43,9 +43,6 @@ public:
 	void Load();
 	void Save();
 
-	void Open();
-	void Close();
-
 	int nrThreads;
 
 	int nrPoints;
@@ -55,6 +52,9 @@ public:
 	std::vector<std::vector<std::string>> paths;
 
 protected:
+	void Open();
+	void Close();
+
 	wxFileConfig *m_fileconfig;
 };
 
