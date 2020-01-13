@@ -46,17 +46,17 @@ namespace KKR {
 			return std::min(GetMaxRadius(E, maxIndex) / stepSize, static_cast<double>(maxIndex));
 		}
 
-		inline static double GetDerivativeStep(int posIndex, double h)
+		inline static double GetDerivativeStep(int /*posIndex*/, double h)
 		{
 			return h;
 		}
 
-		inline static double GetMaxRadius(double E, size_t maxIndex)
+		inline static double GetMaxRadius(double E, size_t /*maxIndex*/)
 		{
 			return 200. / sqrt(2. * abs(E));
 		}
 
-		inline static double GetWavefunctionValue(size_t posIndex, double value)
+		inline static double GetWavefunctionValue(size_t /*posIndex*/, double value)
 		{
 			return value;
 		}
@@ -160,7 +160,7 @@ namespace KKR {
 			return Rp * (exp(maxIndex * m_delta) - 1.);
 		}
 
-		inline double GetDerivativeStep(int posIndex, double h) const
+		inline double GetDerivativeStep(int posIndex, double /*h*/) const
 		{
 			return Rp * exp(posIndex * m_delta) * (1. - exp(-m_delta));
 		}
@@ -223,7 +223,6 @@ namespace KKR {
 			}
 
 			double position = 0;
-			double prevSol = 0;
 			double solution = 0;
 			double wprev = 0;
 

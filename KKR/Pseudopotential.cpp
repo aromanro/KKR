@@ -65,7 +65,7 @@ namespace KKR {
 				}
 				else if (lineno < 8) continue;
 
-				int counter;
+				unsigned int counter;
 				double radius;
 				double potential;
 

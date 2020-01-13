@@ -25,7 +25,7 @@ namespace KKR
 			unsigned int dim = m_lMax + 1;
 			dim *= dim;
 
-			L.resize(dim, dim);
+			Lmat.resize(dim, dim);
 		}
 
 		bool IsCloseToPole(double E, const Vector3D<double>& k, double limit, const std::vector<double>& ratios, double limit2 = 1E-10) const
@@ -261,12 +261,12 @@ namespace KKR
 								const double logDeriv = ratios[l] - 1. / m_R;
 
 								const std::complex<double> ctgPhaseShift = (SpecialFunctions::Bessel::nderiv(l, kappaR) * kappa - SpecialFunctions::Bessel::n(l, kappaR) * logDeriv) / (SpecialFunctions::Bessel::jderiv(l, kappaR) * kappa - SpecialFunctions::Bessel::j(l, kappaR) * logDeriv);
-								L(i, i) = A + kappa * ctgPhaseShift;
+								Lmat(i, i) = A + kappa * ctgPhaseShift;
 							}
 							else
 							{
-								L(i, j) = A;
-								L(j, i) = std::conj(A);
+								Lmat(i, j) = A;
+								Lmat(j, i) = std::conj(A);
 							}
 						
 							++j;
@@ -278,8 +278,8 @@ namespace KKR
 
 		std::complex<double> Determinant() const
 		{
-			return L.determinant();
-			//return L.fullPivLu().determinant();
+			return Lmat.determinant();
+			//return Lmat.fullPivLu().determinant();
 		}
 
 	protected:
@@ -293,7 +293,7 @@ namespace KKR
 		const double m_cellVolume;
 		const int m_lMax;
 
-		Eigen::MatrixXcd L;
+		Eigen::MatrixXcd Lmat;
 	};
 
 }
