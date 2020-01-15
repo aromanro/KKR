@@ -163,7 +163,7 @@ namespace KKR
 					{
 						const double term = std::pow(E * rs2 / 2., m) / coeffs.Factorial(m) * SpecialFunctions::Gamma(0.5 + L - m, rs2 * eta / 4.);
 						integral += term;
-						if (abs(term) < 1E-18) break;
+						if (abs(term) < 1E-13) break;
 					}
 					integral *= 0.5 / std::pow(rs, 2. * L + 1.);
 				}
@@ -191,7 +191,7 @@ namespace KKR
 				{
 					const double term = std::pow(EpEta, s) / (2. * s - 1.) / coeffs.Factorial(s);
 					D3 += term;
-					if (abs(term) < 1E-18) break;
+					if (abs(term) < 1E-13) break;
 				}
 
 				D3 *= -0.5 * sqrt(eta) * M_1_PI;
