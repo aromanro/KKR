@@ -19,18 +19,18 @@ namespace KKR
 	{
 	public:
 
-		double Factorial(unsigned long long int n) const
+		static double Factorial(long long int n)
 		{
 			// using precalculated (at compile time) values
-			if (n < 21) return static_cast<double>(factorialsTable[n]);
+			if (n < 0) return 1;
+			else if (n < 21) return static_cast<double>(factorialsTable[n]);
 
 			double val = static_cast<double>(factorialsTable[20]);
-			for (unsigned long int i = 21; i <= n; ++i)
+			for (long int i = 21; i <= n; ++i)
 				val *= i;
 
 			return val;
 		}
-
 
 		double TriangleCoefficient(long long int a, long long int b, long long int c) const
 		{
