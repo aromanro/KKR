@@ -1,0 +1,14 @@
+
+.vs/KKR/v16/.suo
+*.db
+*.ipch
+*.obj
+*.log
+*.tlog
+*.txt
+*.idb
+*.pdb
+*.exe
+*.ilk
+*.iobj
+*.ipdb
