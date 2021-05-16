@@ -62,17 +62,16 @@ namespace KKR
 
 				const double t4 = j3 - j2 + m1 + k;
 				const double t5 = j3 - j1 - m2 + k;
-
-				val += pow(-1, k) / (Factorial(static_cast<unsigned long long int>(k))* Factorial(static_cast<unsigned long long int>(t1))* Factorial(static_cast<unsigned long long int>(t2))*
-					Factorial(static_cast<unsigned long long int>(t3))* Factorial(static_cast<unsigned long long int>(t4))* Factorial(static_cast<unsigned long long int>(t5)));
+				val += pow(-1, static_cast<double>(k)) / (Factorial(static_cast<unsigned long long int>(k)) * Factorial(static_cast<unsigned long long int>(t1)) * Factorial(static_cast<unsigned long long int>(t2)) *
+					Factorial(static_cast<unsigned long long int>(t3)) * Factorial(static_cast<unsigned long long int>(t4)) * Factorial(static_cast<unsigned long long int>(t5)));
 			}
 
 			if (0 == val) return 0;
 
-			return val * sqrt((2. * j3 + 1.) * Factorial(static_cast<unsigned long long int>(j3 + j1 - j2))* Factorial(static_cast<unsigned long long int>(j3 - j1 + j2))*
-				Factorial(static_cast<unsigned long long int>(j1 + j2 - j3)) / Factorial(static_cast<unsigned long long int>(j1 + j2 + j3 + 1.)))*
-				sqrt(Factorial(static_cast<unsigned long long int>(j1 + m1)) * Factorial(static_cast<unsigned long long int>(j1 - m1))*
-					 Factorial(static_cast<unsigned long long int>(j2 + m2)) * Factorial(static_cast<unsigned long long int>(j2 - m2))*
+			return val * sqrt((2. * j3 + 1.) * Factorial(static_cast<unsigned long long int>(j3 + j1 - j2))* Factorial(static_cast<unsigned long long int>(j3 - j1 + j2)) *
+				Factorial(static_cast<unsigned long long int>(j1 + j2 - j3)) / Factorial(static_cast<unsigned long long int>(j1 + j2 + j3 + 1.))) *
+				sqrt(Factorial(static_cast<unsigned long long int>(j1 + m1)) * Factorial(static_cast<unsigned long long int>(j1 - m1)) *
+					 Factorial(static_cast<unsigned long long int>(j2 + m2)) * Factorial(static_cast<unsigned long long int>(j2 - m2)) *
 					 Factorial(static_cast<unsigned long long int>(j3 + m3)) * Factorial(static_cast<unsigned long long int>(j3 - m3)));
 		}
 
