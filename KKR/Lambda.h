@@ -20,7 +20,7 @@ namespace KKR
 	{
 	public:
 		Lambda(const std::vector<Vector3D<double>>& basisVectors, const std::vector<Vector3D<double>>& realVectors, double R, double cellVolume, unsigned int lmax = 4)
-			: m_basisVectors(basisVectors), m_realVectors(realVectors), m_R(R), m_cellVolume(cellVolume), m_lMax(lmax)
+			: m_basisVectors(basisVectors), m_realVectors(realVectors), m_R(R), m_oneOverR(1. / R), m_cellVolume(cellVolume), m_lMax(lmax)
 		{
 			unsigned int dim = m_lMax + 1;
 			dim *= dim;
@@ -46,11 +46,11 @@ namespace KKR
 
 			const std::complex<double> kappa((E >= 0 ? sqrt(2. * E) : 0), (E < 0 ? sqrt(-2. * E) : 0));
 			const std::complex<double> kappaR = kappa * m_R;
-
+		
 			const int lMax = ratios.size();
 			for (int l = 0; l <= lMax; ++l)
 			{
-				const double logDeriv = ratios[l] - 1. / m_R;
+				const double logDeriv = ratios[l] - m_oneOverR;
 
 				const std::complex<double> check = SpecialFunctions::Bessel::jderiv(l, kappaR) * kappa - SpecialFunctions::Bessel::j(l, kappaR) * logDeriv;
 
@@ -212,7 +212,7 @@ namespace KKR
 				// first compute for the non negative M
 				for (int M = 0; M <= L; ++M)
 				{
-					std::complex<double> Dval = D(E, k, L, M, coeffs);
+					const std::complex<double> Dval = D(E, k, L, M, coeffs);
 					if (Dval != std::complex<double>(0, 0))
 						Dmap[std::make_tuple(L, M)] = Dval;
 				}
@@ -258,7 +258,7 @@ namespace KKR
 
 							if (i == j)
 							{
-								const double logDeriv = ratios[l] - 1. / m_R;
+								const double logDeriv = ratios[l] - m_oneOverR;
 
 								const std::complex<double> ctgPhaseShift = (SpecialFunctions::Bessel::nderiv(l, kappaR) * kappa - SpecialFunctions::Bessel::n(l, kappaR) * logDeriv) / (SpecialFunctions::Bessel::jderiv(l, kappaR) * kappa - SpecialFunctions::Bessel::j(l, kappaR) * logDeriv);
 								Lmat(i, i) = A + kappa * ctgPhaseShift;
@@ -290,6 +290,7 @@ namespace KKR
 		const std::vector<Vector3D<double>>& m_realVectors;
 
 		const double m_R;
+		const double m_oneOverR; // used often in computations, so it's here for optimizations
 		const double m_cellVolume;
 		const int m_lMax;
 
