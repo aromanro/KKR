@@ -161,25 +161,7 @@ namespace KKR
 							const std::complex<double> detComplex = lambda.Determinant();
 							double det = detComplex.real();
 
-							if (posE > 0 && det * oldDet < 0) // change in sign
-							{
-								// skip over the poles of 'free' Green function, they create issues
-								if (!isnan(det) && !isnan(oldDet) && !isinf(det) && !isinf(oldDet) && (abs(det) < detLim && abs(oldDet) < detLim) &&
-									!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit))
-								{
-									res[k].push_back(LinearInterpolation(E, dE, det, oldDet));
-								}
-							}
-							else if (posE > 1 && !isnan(det) && !isnan(oldDet) && !isnan(olderDet) && !isinf(det) && !isinf(oldDet) && !isinf(olderDet) &&
-								abs(det) < detLim && abs(olderDet) < detLim &&
-								abs(oldDet) < abs(olderDet) && abs(oldDet) < abs(det) && // went over a minimum
-								abs(oldDet) < ((abs(E) > 0.3 && 3 == lMax) ? 1E-8 : 1)* smallMinLimit && // the minimum must be 'small' - for lMax = 3 I had to use this hack for high energy
-								((olderDet < 0 && oldDet < 0 && det < 0) || (olderDet > 0 && oldDet > 0 && det > 0)) && // all have the same sign, otherwise the sign change should be detected
-								!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit))
-							{
-								res[k].push_back(QuadraticInterpolation(E, dE, det, oldDet, olderDet));
-							}
-
+							GetResult(res, ratios, lambda, k, E, posE, dE, det, oldDet, olderDet, detLim, ctgLimit, smallMinLimit, lMax);
 							olderDet = oldDet;
 							oldDet = det;
 						}
