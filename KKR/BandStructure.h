@@ -4,8 +4,7 @@
 #include <atomic>
 #include <future>
 
-#define _USE_MATH_DEFINES
-#include <math.h>
+#include "Lambda.h"
 
 #include "Vector3D.h"
 
@@ -14,7 +13,6 @@
 #include "BandStructureBasis.h"
 #include "Numerov.h"
 #include "Pseudopotential.h"
-
 
 namespace KKR
 {
@@ -45,6 +43,7 @@ namespace KKR
 
 	protected:
 		void ComputeSchrodinger(std::vector<std::future<void>>& tasks, Potential& potential, std::vector<std::vector<double>>& ratios, int numIntervals, int numerovGridNodes, int numerovIntervals, double deltaGrid, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options);
+		void GetResult(std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax);
 
 		static void SetPotential(Potential& potential, int numerovGridNodes, double Rp, double deltaGrid);
 		static double LinearInterpolation(double E, double dE, double det, double oldDet);

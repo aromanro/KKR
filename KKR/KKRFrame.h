@@ -1,6 +1,5 @@
 #pragma once
 
-
 #define _MATH_DEFINES_DEFINED
 
 #define wxNEEDS_DECL_BEFORE_TEMPLATE
@@ -48,7 +47,6 @@
 
 #include "Options.h"
 #include "BandStructure.h"
-#include "SpecialFunctions.h"
 #include "KKRThread.h"
 
 class KKRFrame : public wxFrame

@@ -176,6 +176,7 @@
     <ClCompile Include="KKRApp.cpp" />
     <ClCompile Include="KKRFrame.cpp" />
     <ClCompile Include="KKRThread.cpp" />
+    <ClCompile Include="Lambda.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="OptionsFrame.cpp" />
     <ClCompile Include="Pseudopotential.cpp" />

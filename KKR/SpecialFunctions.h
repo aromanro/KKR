@@ -1,12 +1,10 @@
 #pragma once
 
 #define _USE_MATH_DEFINES
-//#include <math.h>
+#include <math.h>
 
 // you can use boost for the same purpose if spherical Bessel functions are not available
 
-
-#include <cmath>
 #include <complex>
 
 namespace SpecialFunctions
