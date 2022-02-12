@@ -200,12 +200,9 @@ namespace KKR
 			return D1 + D2 + D3;
 		}
 
-		void Compute(double E, const Vector3D<double>& k, const std::vector<double>& ratios, const Coefficients& coeffs)
-		{
-			const std::complex<double> kappa((E >= 0 ? sqrt(2. * E) : 0), (E < 0 ? sqrt(-2. * E) : 0));
-			const std::complex<double> kappaR = kappa * m_R;
 
-			// precalculate D values
+		inline std::map<std::tuple<int, int>, std::complex<double>> ComputeDmap(double E, const Vector3D<double>& k, const Coefficients& coeffs)
+		{
 			std::map<std::tuple<int, int>, std::complex<double>> Dmap;
 			for (int L = 0; L <= 2 * m_lMax; ++L)
 			{
@@ -227,6 +224,17 @@ namespace KKR
 						Dmap[std::make_tuple(L, M)] = pow(-1, -M) * std::conj(it->second);
 				}
 			}
+
+			return Dmap;
+		}
+
+		void Compute(double E, const Vector3D<double>& k, const std::vector<double>& ratios, const Coefficients& coeffs)
+		{
+			const std::complex<double> kappa((E >= 0 ? sqrt(2. * E) : 0), (E < 0 ? sqrt(-2. * E) : 0));
+			const std::complex<double> kappaR = kappa * m_R;
+
+			// precalculate D values
+			std::map<std::tuple<int, int>, std::complex<double>> Dmap = ComputeDmap(E, k, coeffs);
 
 			const std::complex<double> I(0, 1);
 

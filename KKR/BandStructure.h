@@ -30,7 +30,7 @@ namespace KKR
 
 		std::vector<std::vector<double>> results;
 
-		virtual void Initialize(std::vector<std::string> path, unsigned int nrPoints = 600) override
+		void Initialize(std::vector<std::string> path, unsigned int nrPoints = 600) override
 		{
 			BandStructureBasis::Initialize(path, nrPoints);
 			results.clear();

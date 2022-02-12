@@ -20,7 +20,6 @@ namespace SpecialFunctions
 	class SpecialFunctions
 	{
 	protected:
-
 		template<typename T> static T GetRecursiveValue(unsigned int l, const T& x, T& v0, T& v1)
 		{
 			if (0 == l) return v0;
@@ -36,7 +35,6 @@ namespace SpecialFunctions
 
 			return v1;
 		}
-
 	};
 
 	class Bessel : public SpecialFunctions

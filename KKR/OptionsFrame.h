@@ -25,6 +25,6 @@ public:
 	Options options;
 	void CreateControls();
 
-	virtual bool TransferDataFromWindow() override;
+	bool TransferDataFromWindow() override;
 };
 

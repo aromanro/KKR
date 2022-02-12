@@ -18,7 +18,6 @@ namespace KKR
 	class Coefficients
 	{
 	public:
-
 		static double Factorial(long long int n)
 		{
 			// using precalculated (at compile time) values

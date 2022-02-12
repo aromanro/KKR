@@ -91,7 +91,6 @@ namespace KKR
 					}
 				}
 			);
-
 		}
 
 		for (auto& task : tasks)
@@ -209,7 +208,6 @@ namespace KKR
 							olderDet = oldDet;
 							oldDet = det;
 						}
-
 					}
 				}
 			);

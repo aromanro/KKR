@@ -23,5 +23,5 @@ class KKRApp : public wxApp
 public:
 	KKRFrame* frame = nullptr;
 
-	virtual bool OnInit() override;
+	bool OnInit() override;
 };

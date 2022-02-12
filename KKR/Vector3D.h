@@ -56,7 +56,6 @@ public:
 	{
 		return atan2(Y, X);
 	}
-
 };
 
 template<typename T> Vector3D<T> operator*(T o, const Vector3D<T>& t) { return t*o; }
