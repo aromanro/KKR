@@ -1,5 +1,3 @@
-#include <future>
-
 #include "BandStructure.h"
 
 
@@ -19,6 +17,47 @@ namespace KKR
 			const double r = Rp * (exp(i * deltaGrid) - 1.); // for non uniform grid
 			potential.m_potentialValues[i] = -Pseudopotential::VeffCu(r) / r;
 		}
+	}
+
+	void BandStructure::ComputeSchrodinger(std::vector<std::future<void>>& tasks, Potential& potential, std::vector<std::vector<double>>& ratios, int numIntervals, int numerovGridNodes, int numerovIntervals, double deltaGrid, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options)
+	{
+		std::launch launchType = options.nrThreads == 1 ? std::launch::deferred : std::launch::async;
+
+		int startPos = 0;
+		int step = ceil(static_cast<double>(numIntervals) / options.nrThreads);
+		if (step < 1) step = 1;
+		int nextPos;
+
+
+		for (int t = 0; t < options.nrThreads; ++t, startPos = nextPos)
+		{
+			if (t == options.nrThreads - 1) nextPos = numIntervals;
+			else nextPos = startPos + step;
+
+			if (nextPos > numIntervals) nextPos = numIntervals;
+
+			tasks[t] = std::async(launchType, [this, &potential, numerovGridNodes, &ratios, startPos, nextPos, minE, dE, lMax, numerovIntervals, deltaGrid, &terminate]()->void
+				{
+					//Numerov<NumerovFunctionRegularGrid> numerov(potential, 0, m_Rmax, numerovGridNodes);
+					Numerov<NumerovFunctionNonUniformGrid> numerov(potential, deltaGrid, m_Rmax, numerovGridNodes);
+
+					for (int posE = startPos; posE < nextPos && !terminate; ++posE)
+					{
+						const double E = minE + posE * dE;
+
+						ratios[posE].resize(lMax + 1LL);
+						for (int l = 0; l <= lMax && !terminate; ++l)
+						{
+							// first parameter: pass m_Rmax for uniform grid, pass numerovIntervals for non-uniform (in this case the step is 1, so max radius is numerovIntervals)
+							ratios[posE][l] = numerov.SolveSchrodinger(/*m_Rmax*/numerovIntervals, l, E, numerovIntervals);
+						}
+					}
+				}
+			);
+		}
+
+		for (auto& task : tasks)
+			task.get();
 	}
 
 	std::vector<std::vector<double>> BandStructure::Compute(const std::atomic_bool& terminate, const Options& options)
@@ -61,46 +100,10 @@ namespace KKR
 		SetPotential(potential, numerovGridNodes, Rp, deltaGrid);
 
 		std::vector<std::future<void>> tasks(options.nrThreads);
-		std::launch launchType = options.nrThreads == 1 ? std::launch::deferred : std::launch::async;
 
-		int startPos = 0;
-		int step = ceil(static_cast<double>(numIntervals) / options.nrThreads);
-		if (step < 1) step = 1;
-		int nextPos;
-
-
-		for (int t = 0; t < options.nrThreads; ++t, startPos = nextPos)
-		{
-			if (t == options.nrThreads - 1) nextPos = numIntervals;
-			else nextPos = startPos + step;
-
-			if (nextPos > numIntervals) nextPos = numIntervals;
-
-			tasks[t] = std::async(launchType, [this, &potential, numerovGridNodes, &ratios, startPos, nextPos, minE, dE, lMax, numerovIntervals, deltaGrid, &terminate]()->void
-				{
-					//Numerov<NumerovFunctionRegularGrid> numerov(potential, 0, m_Rmax, numerovGridNodes);
-					Numerov<NumerovFunctionNonUniformGrid> numerov(potential, deltaGrid, m_Rmax, numerovGridNodes);
-
-					for (int posE = startPos; posE < nextPos && !terminate; ++posE)
-					{
-						const double E = minE + posE * dE;
-
-						ratios[posE].resize(lMax + 1LL);
-						for (int l = 0; l <= lMax && !terminate; ++l)
-						{
-							// first parameter: pass m_Rmax for uniform grid, pass numerovIntervals for non-uniform (in this case the step is 1, so max radius is numerovIntervals)
-							ratios[posE][l] = numerov.SolveSchrodinger(/*m_Rmax*/numerovIntervals, l, E, numerovIntervals);
-						}
-					}
-				}
-			);
-		}
-
-		for (auto& task : tasks)
-			task.get();
+		ComputeSchrodinger(tasks, potential, ratios, numIntervals, numerovGridNodes, numerovIntervals, deltaGrid, minE, dE, lMax, terminate, options);
 
 		if (terminate) return res;
-
 
 		Coefficients coeffs;
 		coeffs.PrecalculateCoefficients(lMax);
@@ -110,11 +113,14 @@ namespace KKR
 
 		res.resize(kpoints.size());
 
-		startPos = 0;
-		step = ceil(static_cast<double>(kpoints.size()) / options.nrThreads);
+		int startPos = 0;
+		int step = ceil(static_cast<double>(kpoints.size()) / options.nrThreads);
 		if (step < 1) step = 1;
+		int nextPos;
 
 		if (terminate) return res;
+
+		std::launch launchType = options.nrThreads == 1 ? std::launch::deferred : std::launch::async;
 
 		for (int t = 0; t < options.nrThreads; ++t)
 		{
@@ -177,7 +183,7 @@ namespace KKR
 								((olderDet < 0 && oldDet < 0 && det < 0) || (olderDet > 0 && oldDet > 0 && det > 0)) && // all have the same sign, otherwise the sign change should be detected
 								!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit))
 							{
-								res[k].push_back(QuadraticInterpolation(E, dE, oldDet, olderDet);
+								res[k].push_back(QuadraticInterpolation(E, dE, det, oldDet, olderDet));
 							}
 
 							olderDet = oldDet;

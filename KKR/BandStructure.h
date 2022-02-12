@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <atomic>
+#include <future>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -43,6 +44,8 @@ namespace KKR
 		std::vector<std::vector<double>> Compute(const std::atomic_bool& terminate, const Options& options);
 
 	protected:
+		void ComputeSchrodinger(std::vector<std::future<void>>& tasks, Potential& potential, std::vector<std::vector<double>>& ratios, int numIntervals, int numerovGridNodes, int numerovIntervals, double deltaGrid, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options);
+
 		static void SetPotential(Potential& potential, int numerovGridNodes, double Rp, double deltaGrid);
 		static double LinearInterpolation(double E, double dE, double det, double oldDet);
 		static double QuadraticInterpolation(double E, double dE, double det, double oldDet, double olderDet);
