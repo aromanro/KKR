@@ -11,6 +11,9 @@
 #include "Options.h"
 
 #include "BandStructureBasis.h"
+#include "Numerov.h"
+#include "Pseudopotential.h"
+
 
 namespace KKR
 {
@@ -38,6 +41,11 @@ namespace KKR
 
 
 		std::vector<std::vector<double>> Compute(const std::atomic_bool& terminate, const Options& options);
+
+	protected:
+		static void SetPotential(Potential& potential, int numerovGridNodes, double Rp, double deltaGrid);
+		static double LinearInterpolation(double E, double dE, double det, double oldDet);
+		static double QuadraticInterpolation(double E, double dE, double det, double oldDet, double olderDet);
 	};
 
 }

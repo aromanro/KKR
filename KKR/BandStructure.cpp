@@ -1,16 +1,25 @@
 #include <future>
 
 #include "BandStructure.h"
-#include "Numerov.h"
+
 
 #include "ChemUtils.h"
-#include "Pseudopotential.h"
 
 #include "Coefficients.h"
 #include "Lambda.h"
 
 namespace KKR
 {
+	void BandStructure::SetPotential(Potential& potential, int numerovGridNodes, double Rp, double deltaGrid)
+	{
+		potential.m_potentialValues.resize(numerovGridNodes);
+		for (int i = 0; i < numerovGridNodes; ++i)
+		{
+			//const double r = i * dr; // for uniform grid
+			const double r = Rp * (exp(i * deltaGrid) - 1.); // for non uniform grid
+			potential.m_potentialValues[i] = -Pseudopotential::VeffCu(r) / r;
+		}
+	}
 
 	std::vector<std::vector<double>> BandStructure::Compute(const std::atomic_bool& terminate, const Options& options)
 	{
@@ -49,13 +58,7 @@ namespace KKR
 		// First, compute psi'/psi at muffin boundary, for each energy
 
 		Potential potential;
-		potential.m_potentialValues.resize(numerovGridNodes);
-		for (int i = 0; i < numerovGridNodes; ++i)
-		{
-			//const double r = i * dr; // for uniform grid
-			const double r = Rp * (exp(i * deltaGrid) - 1.); // for non uniform grid
-			potential.m_potentialValues[i] = -Pseudopotential::VeffCu(r) / r;
-		}
+		SetPotential(potential, numerovGridNodes, Rp, deltaGrid);
 
 		std::vector<std::future<void>> tasks(options.nrThreads);
 		std::launch launchType = options.nrThreads == 1 ? std::launch::deferred : std::launch::async;
@@ -164,13 +167,7 @@ namespace KKR
 								if (!isnan(det) && !isnan(oldDet) && !isinf(det) && !isinf(oldDet) && (abs(det) < detLim && abs(oldDet) < detLim) &&
 									!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit))
 								{
-									// linear interpolation
-									const double val = E - dE * det / (det - oldDet);
-
-									if (!isnan(val) && !isinf(val) && val >= E - dE && val <= E)
-										res[k].push_back(val);
-									else
-										res[k].push_back(E - 0.5 * dE);
+									res[k].push_back(LinearInterpolation(E, dE, det, oldDet));
 								}
 							}
 							else if (posE > 1 && !isnan(det) && !isnan(oldDet) && !isnan(olderDet) && !isinf(det) && !isinf(oldDet) && !isinf(olderDet) &&
@@ -180,29 +177,7 @@ namespace KKR
 								((olderDet < 0 && oldDet < 0 && det < 0) || (olderDet > 0 && oldDet > 0 && det > 0)) && // all have the same sign, otherwise the sign change should be detected
 								!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit))
 							{
-								// quadratic interpolation:
-
-								// write the interpolation polynomial out of the three points:
-								// y(x) = y0(x-x1)(x-x2)/((x0-x1)(x0-x2)) + y1(x-x0)(x-x2)/((x1-x0)(x1-x2))+ y2(x-x0)(x-x1)/((x2-x0)(x2-x1)) 
-								// points: (x0, y0) = (E - 2*dE, olderDet), (x1, y1) = (E - dE, oldDet), (x2, y2) = (E, det)
-								// the minimum is where y'(x) = 0 so calculate the derivative of the polynomial, make it equal with 0, solve for x and that's the val
-
-								// TODO: check it, I derived it too fast, might have some mistakes
-								const double coef1 = olderDet * 0.5;
-								const double coef2 = -oldDet;
-								const double coef3 = det * 0.5;
-
-								//Check:
-								// the interpolation polynomial is:
-								// y(x) = coef1 (x-x1)(x-x2) / dE^2 + coef2 (x-x0)(x-x2) / dE^2+ coef3 (x-x0)(x-x1) / dE^2 
-
-								//const double val = E - dE;
-								const double val = E - 0.5 * dE * (coef1 + 2 * coef2 + 3 * coef3) / (coef1 + coef2 + coef3);
-
-								if (!isnan(val) && !isinf(val) && val >= E - 2 * dE && val <= E)
-									res[k].push_back(val);
-								else
-									res[k].push_back(val - dE);
+								res[k].push_back(QuadraticInterpolation(E, dE, oldDet, olderDet);
 							}
 
 							olderDet = oldDet;
@@ -220,5 +195,43 @@ namespace KKR
 
 		return std::move(res);
 	}
+
+	double BandStructure::LinearInterpolation(double E, double dE, double det, double oldDet)
+	{
+		const double val = E - dE * det / (det - oldDet);
+
+		if (!isnan(val) && !isinf(val) && val >= E - dE && val <= E)
+			return val;
+		
+		return E - 0.5 * dE;
+	}
+
+	double BandStructure::QuadraticInterpolation(double E, double dE, double det, double oldDet, double olderDet)
+	{
+		// quadratic interpolation:
+
+		// write the interpolation polynomial out of the three points:
+		// y(x) = y0(x-x1)(x-x2)/((x0-x1)(x0-x2)) + y1(x-x0)(x-x2)/((x1-x0)(x1-x2))+ y2(x-x0)(x-x1)/((x2-x0)(x2-x1)) 
+		// points: (x0, y0) = (E - 2*dE, olderDet), (x1, y1) = (E - dE, oldDet), (x2, y2) = (E, det)
+		// the minimum is where y'(x) = 0 so calculate the derivative of the polynomial, make it equal with 0, solve for x and that's the val
+
+		// TODO: check it, I derived it too fast, might have some mistakes
+		const double coef1 = olderDet * 0.5;
+		const double coef2 = -oldDet;
+		const double coef3 = det * 0.5;
+
+		//Check:
+		// the interpolation polynomial is:
+		// y(x) = coef1 (x-x1)(x-x2) / dE^2 + coef2 (x-x0)(x-x2) / dE^2+ coef3 (x-x0)(x-x1) / dE^2 
+
+		//const double val = E - dE;
+		const double val = E - 0.5 * dE * (coef1 + 2 * coef2 + 3 * coef3) / (coef1 + coef2 + coef3);
+
+		if (!isnan(val) && !isinf(val) && val >= E - 2 * dE && val <= E)
+			return val;
+
+		return val - dE;
+	}
+
 
 }
