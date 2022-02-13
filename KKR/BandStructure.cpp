@@ -114,14 +114,13 @@ namespace KKR
 		Coefficients coeffs;
 		coeffs.PrecalculateCoefficients(lMax);
 
-		int startPos = 0;
 		int step = ceil(static_cast<double>(kpoints.size()) / options.nrThreads);
 		if (step < 1) step = 1;
 		int nextPos;
 
 		std::launch launchType = options.nrThreads == 1 ? std::launch::deferred : std::launch::async;
 
-		for (int t = 0; t < options.nrThreads; ++t)
+		for (int t = 0, startPos = 0; t < options.nrThreads; ++t, startPos = nextPos)
 		{
 			if (t == options.nrThreads - 1) nextPos = kpoints.size();
 			else nextPos = startPos + step;
@@ -143,17 +142,7 @@ namespace KKR
 						{
 							const double E = minE + posE * dE;
 
-							bool blowup = false;
-							for (int l = 0; l <= lMax && !terminate; ++l)
-							{
-								if (isnan(ratios[posE][l]) || isinf(ratios[posE][l]) || abs(ratios[posE][l]) > 300)
-								{
-									blowup = true;
-									break;
-								}
-							}
-
-							if (blowup)
+							if (IsBlowup(ratios, posE, lMax, terminate))
 							{
 								oldDet = olderDet = std::numeric_limits<double>::infinity();
 								continue;
@@ -161,8 +150,7 @@ namespace KKR
 
 							lambda.Compute(E, kpoints[k], ratios[posE], coeffs);
 
-							const std::complex<double> detComplex = lambda.Determinant();
-							double det = detComplex.real();
+							const double det = lambda.Determinant().real();
 
 							GetResult(res, ratios, lambda, k, E, posE, dE, det, oldDet, olderDet, detLim, ctgLimit, smallMinLimit, lMax);
 							olderDet = oldDet;
@@ -171,15 +159,28 @@ namespace KKR
 					}
 				}
 			);
-
-			startPos = nextPos;
 		}
 
 		for (auto& task : tasks)
 			task.get();
 	}
 
-	void BandStructure::GetResult(std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
+	bool BandStructure::IsBlowup(const std::vector<std::vector<double>>& ratios, double posE, int lMax, const std::atomic_bool& terminate)
+	{
+		bool blowup = false;
+		for (int l = 0; l <= lMax && !terminate; ++l)
+		{
+			if (isnan(ratios[posE][l]) || isinf(ratios[posE][l]) || abs(ratios[posE][l]) > 300)
+			{
+				blowup = true;
+				break;
+			}
+		}
+
+		return blowup;
+	}
+
+	void BandStructure::GetResult(std::vector<std::vector<double>>& res, const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
 	{
 		if (IsChangeInSign(posE, det, oldDet)) // change in sign
 		{
@@ -195,14 +196,14 @@ namespace KKR
 		}
 	}
 
-	bool BandStructure::IsOverLimits(std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double detLim, double ctgLimit)
+	bool BandStructure::IsOverLimits(const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double detLim, double ctgLimit)
 	{
 		return !isnan(det) && !isnan(oldDet) && !isinf(det) && !isinf(oldDet) && (abs(det) < detLim && abs(oldDet) < detLim) &&
 			!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit);
 	}
 
 
-	bool BandStructure::IsOverLimits2(std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
+	bool BandStructure::IsOverLimits2(const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
 	{
 		return posE > 1 && !isnan(det) && !isnan(oldDet) && !isnan(olderDet) && !isinf(det) && !isinf(oldDet) && !isinf(olderDet) &&
 			abs(det) < detLim && abs(olderDet) < detLim &&
