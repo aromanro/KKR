@@ -180,25 +180,43 @@ namespace KKR
 
 	void BandStructure::GetResult(std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
 	{
-		if (posE > 0 && det * oldDet < 0) // change in sign
+		if (IsChangeInSign(posE, det, oldDet)) // change in sign
 		{
 			// skip over the poles of 'free' Green function, they create issues
-			if (!isnan(det) && !isnan(oldDet) && !isinf(det) && !isinf(oldDet) && (abs(det) < detLim && abs(oldDet) < detLim) &&
-				!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit))
+			if (IsOverLimits(ratios, lambda, k, E, posE, dE, det, oldDet, detLim, ctgLimit))
 			{
 				res[k].push_back(LinearInterpolation(E, dE, det, oldDet));
 			}
 		}
-		else if (posE > 1 && !isnan(det) && !isnan(oldDet) && !isnan(olderDet) && !isinf(det) && !isinf(oldDet) && !isinf(olderDet) &&
-			abs(det) < detLim && abs(olderDet) < detLim &&
-			abs(oldDet) < abs(olderDet) && abs(oldDet) < abs(det) && // went over a minimum
-			abs(oldDet) < ((abs(E) > 0.3 && 3 == lMax) ? 1E-8 : 1) * smallMinLimit && // the minimum must be 'small' - for lMax = 3 I had to use this hack for high energy
-			((olderDet < 0 && oldDet < 0 && det < 0) || (olderDet > 0 && oldDet > 0 && det > 0)) && // all have the same sign, otherwise the sign change should be detected
-			!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit))
+		else if (IsOverLimits2(ratios, lambda, k, E, posE, dE, det, oldDet, olderDet, detLim, ctgLimit, smallMinLimit, lMax))
 		{
 			res[k].push_back(QuadraticInterpolation(E, dE, det, oldDet, olderDet));
 		}
 	}
+
+	bool BandStructure::IsOverLimits(std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double detLim, double ctgLimit)
+	{
+		return !isnan(det) && !isnan(oldDet) && !isinf(det) && !isinf(oldDet) && (abs(det) < detLim && abs(oldDet) < detLim) &&
+			!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit);
+	}
+
+
+	bool BandStructure::IsOverLimits2(std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
+	{
+		return posE > 1 && !isnan(det) && !isnan(oldDet) && !isnan(olderDet) && !isinf(det) && !isinf(oldDet) && !isinf(olderDet) &&
+			abs(det) < detLim && abs(olderDet) < detLim &&
+			abs(oldDet) < abs(olderDet) && abs(oldDet) < abs(det) && // went over a minimum
+			abs(oldDet) < ((abs(E) > 0.3 && 3 == lMax) ? 1E-8 : 1) * smallMinLimit && // the minimum must be 'small' - for lMax = 3 I had to use this hack for high energy
+			((olderDet < 0 && oldDet < 0 && det < 0) || (olderDet > 0 && oldDet > 0 && det > 0)) && // all have the same sign, otherwise the sign change should be detected
+			!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit);
+	}
+
+
+	bool BandStructure::IsChangeInSign(double posE, double det, double oldDet)
+	{
+		return posE > 0 && det * oldDet < 0;
+	}
+
 
 
 	double BandStructure::LinearInterpolation(double E, double dE, double det, double oldDet)
