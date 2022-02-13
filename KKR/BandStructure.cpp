@@ -101,20 +101,23 @@ namespace KKR
 
 		if (terminate) return res;
 
+		// now compute the spectrum for each k point along the path
+		ComputeBandstructure(tasks, res, ratios, numIntervals, minE, dE, lMax, terminate, options, smallMinLimit, detLim, ctgLimit);
+
+		return res;
+	}
+
+	void BandStructure::ComputeBandstructure(std::vector<std::future<void>>& tasks, std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, int numIntervals, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options, double smallMinLimit, double detLim, double ctgLimit)
+	{
+		res.resize(kpoints.size());
+
 		Coefficients coeffs;
 		coeffs.PrecalculateCoefficients(lMax);
-
-
-		// now compute the spectrum for each k point along the path
-
-		res.resize(kpoints.size());
 
 		int startPos = 0;
 		int step = ceil(static_cast<double>(kpoints.size()) / options.nrThreads);
 		if (step < 1) step = 1;
 		int nextPos;
-
-		if (terminate) return res;
 
 		std::launch launchType = options.nrThreads == 1 ? std::launch::deferred : std::launch::async;
 
@@ -174,8 +177,6 @@ namespace KKR
 
 		for (auto& task : tasks)
 			task.get();
-
-		return res;
 	}
 
 	void BandStructure::GetResult(std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
