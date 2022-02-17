@@ -107,7 +107,7 @@ namespace KKR
 		return res;
 	}
 
-	void BandStructure::ComputeBandstructure(std::vector<std::future<void>>& tasks, std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, int numIntervals, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options, double smallMinLimit, double detLim, double ctgLimit)
+	void BandStructure::ComputeBandstructure(std::vector<std::future<void>>& tasks, std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, int numIntervals, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options, double smallMinLimit, double detLim, double ctgLimit) const
 	{
 		res.resize(kpoints.size());
 
@@ -180,7 +180,7 @@ namespace KKR
 		return blowup;
 	}
 
-	void BandStructure::GetResult(std::vector<std::vector<double>>& res, const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
+	void BandStructure::GetResult(std::vector<std::vector<double>>& res, const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax) const
 	{
 		if (IsChangeInSign(posE, det, oldDet)) // change in sign
 		{
@@ -196,14 +196,14 @@ namespace KKR
 		}
 	}
 
-	bool BandStructure::IsOverLimits(const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double detLim, double ctgLimit)
+	bool BandStructure::IsOverLimits(const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double detLim, double ctgLimit) const
 	{
 		return !isnan(det) && !isnan(oldDet) && !isinf(det) && !isinf(oldDet) && (abs(det) < detLim && abs(oldDet) < detLim) &&
 			!lambda.IsCloseToPole(E, kpoints[k], 2 * dE, ratios[posE], ctgLimit);
 	}
 
 
-	bool BandStructure::IsOverLimits2(const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax)
+	bool BandStructure::IsOverLimits2(const std::vector<std::vector<double>>& ratios, Lambda& lambda, int k, double E, double posE, double dE, double det, double oldDet, double olderDet, double detLim, double ctgLimit, double smallMinLimit, int lMax) const
 	{
 		return posE > 1 && !isnan(det) && !isnan(oldDet) && !isnan(olderDet) && !isinf(det) && !isinf(oldDet) && !isinf(olderDet) &&
 			abs(det) < detLim && abs(olderDet) < detLim &&
