@@ -344,7 +344,7 @@ int wxVTKRenderWindowInteractor::CreateTimer(int WXUNUSED(timertype))
   if (!timer.Start(10, TRUE))
 	return 0;
 
-  return 1; 
+  return 1;  
 }
 #if VTK_MAJOR_VERSION > 5 || (VTK_MAJOR_VERSION == 5 && VTK_MINOR_VERSION >= 2)
 //------------------------------------------------------------------
@@ -402,13 +402,13 @@ void wxVTKRenderWindowInteractor::OnTimer(wxTimerEvent& WXUNUSED(event))
 long wxVTKRenderWindowInteractor::GetHandleHack()
 {
   //helper function to hide the MSW vs GTK stuff
-  long handle_tmp = 0;
+  long long int handle_tmp = 0;
 
 // __WXMSW__ is for Win32
 // __WXMAC__ is for Carbon or Cocoa builds
 // __WXGTK__ is for both gtk 1.2.x and gtk 2.x
 #if defined(__WXMSW__) || defined(__WXMAC__)
-	handle_tmp = long(this->GetHandle());
+	handle_tmp = (long long int)this->GetHandle();
 #endif //__WXMSW__
 
 // using above GetHandle() works fine with wxOSX 2.9.x
@@ -417,7 +417,7 @@ long wxVTKRenderWindowInteractor::GetHandleHack()
    wxTopLevelWindow* toplevel = dynamic_cast<wxTopLevelWindow*>(wxGetTopLevelParent( this ) );
    if (toplevel != NULL )
    {
-	  handle_tmp = (long)toplevel->GetNSWindow();
+	  handle_tmp = (long long int)toplevel->GetNSWindow();
    }
    // The NSView will be deducted from 
    // [(NSWindow*)Handle contentView]
@@ -426,7 +426,7 @@ long wxVTKRenderWindowInteractor::GetHandleHack()
 
 	// Find and return the actual X-Window.
 #if defined(__WXGTK__) || defined(__WXX11__)
-	return (long)GetXWindow(this);
+	return (long long int)GetXWindow(this);
 #endif
 
 //#ifdef __WXMOTIF__

@@ -37,7 +37,7 @@ namespace Chemistry {
 	std::string ChemUtils::GetPseudopotentialFileForZ(unsigned int Z)
 	{
 		std::string name = GetAtomNameForZ(Z);
-		std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+		std::transform(name.begin(), name.end(), name.begin(), [](char c) { return static_cast<char>(::tolower(c)); });
 
 		name += ".lda.lps";
 
