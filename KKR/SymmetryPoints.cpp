@@ -53,7 +53,7 @@ namespace KKR
 		}
 
 
-		return std::move(result);
+		return result;
 	}
 
 }
