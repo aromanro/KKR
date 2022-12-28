@@ -10,6 +10,15 @@
 
 namespace KKR
 {
+	template <typename t1, typename t2> class PairHash {
+	public:
+		size_t operator()(const std::pair<t1, t2>& p) const 
+		{
+			return std::hash<t1>{}(p.first) ^ std::hash<t2>{}(p.second);
+		}
+	};
+
+
 	class Lambda
 	{
 	public:
@@ -24,7 +33,7 @@ namespace KKR
 
 		bool IsCloseToPole(double E, const Vector3D<double>& k, double limit, const std::vector<double>& ratios, double limit2 = 1E-10) const;
 		std::complex<double> D(double E, const Vector3D<double>& k, int L, int M, const Coefficients& coeffs) const;
-		inline std::map<std::tuple<int, int>, std::complex<double>> ComputeDmap(double E, const Vector3D<double>& k, const Coefficients& coeffs);
+		inline std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> ComputeDmap(double E, const Vector3D<double>& k, const Coefficients& coeffs);
 		void Compute(double E, const Vector3D<double>& k, const std::vector<double>& ratios, const Coefficients& coeffs);
 
 		std::complex<double> Determinant() const

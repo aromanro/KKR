@@ -178,9 +178,9 @@ namespace KKR
 	}
 
 
-	inline std::map<std::tuple<int, int>, std::complex<double>> Lambda::ComputeDmap(double E, const Vector3D<double>& k, const Coefficients& coeffs)
+	inline std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> Lambda::ComputeDmap(double E, const Vector3D<double>& k, const Coefficients& coeffs)
 	{
-		std::map<std::tuple<int, int>, std::complex<double>> Dmap;
+		std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> Dmap;
 		for (int L = 0; L <= 2 * m_lMax; ++L)
 		{
 			// first compute for the non negative M
@@ -188,17 +188,17 @@ namespace KKR
 			{
 				const std::complex<double> Dval = D(E, k, L, M, coeffs);
 				if (Dval != std::complex<double>(0, 0))
-					Dmap[std::make_tuple(L, M)] = Dval;
+					Dmap[std::make_pair(L, M)] = Dval;
 			}
 
 			// for the negative M, use the non negative value already calculated
 
 			for (int M = -L; M < 0; ++M)
 			{
-				auto ind = std::make_tuple(L, -M);
+				auto ind = std::make_pair(L, -M);
 				const auto it = Dmap.find(ind);
 				if (it != Dmap.end())
-					Dmap[std::make_tuple(L, M)] = pow(-1, -M) * std::conj(it->second);
+					Dmap[std::make_pair(L, M)] = pow(-1, -M) * std::conj(it->second);
 			}
 		}
 
@@ -211,7 +211,7 @@ namespace KKR
 		const std::complex<double> kappaR = kappa * m_R;
 
 		// precalculate D values
-		std::map<std::tuple<int, int>, std::complex<double>> Dmap = ComputeDmap(E, k, coeffs);
+		std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> Dmap = ComputeDmap(E, k, coeffs);
 
 		const std::complex<double> I(0, 1);
 
@@ -234,7 +234,7 @@ namespace KKR
 							const double C = coeffs.getCoefficient(l, lp, L, m, mp);
 							if (C != 0.)
 							{
-								const auto it = Dmap.find(std::make_tuple(L, m - mp));
+								const auto it = Dmap.find(std::make_pair(L, m - mp));
 								if (it != Dmap.end())
 									A += it->second * C;
 							}
