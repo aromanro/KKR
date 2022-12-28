@@ -14,7 +14,14 @@ namespace KKR
 	public:
 		size_t operator()(const std::pair<t1, t2>& p) const 
 		{
-			return std::hash<t1>{}(p.first) ^ std::hash<t2>{}(p.second);
+			const auto h1 = std::hash<t1>{}(p.first);
+			const auto h2 = std::hash<t2>{}(p.second);
+
+			// Cantor pairing
+			const unsigned long long int xy = h1 + h2;
+			const unsigned long long int prod = xy * (xy + 1);
+
+			return static_cast<size_t>(0.5 * prod + h2);
 		}
 	};
 
