@@ -17,11 +17,19 @@ namespace KKR
 			const auto h1 = std::hash<t1>{}(p.first);
 			const auto h2 = std::hash<t2>{}(p.second);
 
+			/*
 			// Cantor pairing
 			const unsigned long long int xy = h1 + h2;
 			const unsigned long long int prod = xy * (xy + 1);
 
 			return static_cast<size_t>(0.5 * prod + h2);
+			*/
+
+			// Szudzik’s pairing is supposed to be better
+			if (h1 == std::max(h1, h2))
+				return h1 * h1 + h1 + h2;
+
+			return h2 * h2 + h1;
 		}
 	};
 
