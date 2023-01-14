@@ -72,25 +72,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\wxWidgets-3.0.5\include\msvc;C:\wxWidgets-3.0.5\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VC_IncludePath);C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath);$(WindowsSDK_IncludePath)include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(VCInstallDir)PlatformSDK\common\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include;C:\Program Files (x86)\Java\jdk1.6.0_20\include;C:\Program Files (x86)\Java\jdk1.6.0_20\include\win32</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\VTK\lib;C:\wxWidgets-3.0.5\lib\vc_lib;$(VCInstallDir)PlatformSDK\lib;$(VCInstallDir)PlatformSDK\common\lib;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86;C:\Program Files (x86)\Business Objects\Common\3.5;C:\LIBs\JetVC\Intel;C:\LIBs\boost_1_44_0\stage\lib;C:\Program Files (x86)\Java\jdk1.6.0_20\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\wxWidgets-3.2.1\include\msvc;C:\wxWidgets-3.2.1\include;C:\LIBs\VTK-9.2.5\bin\include\vtk-9.2;C:\LIBs\eigen;$(VC_IncludePath);C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath);$(WindowsSDK_IncludePath)include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(VCInstallDir)PlatformSDK\common\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include;C:\Program Files (x86)\Java\jdk1.6.0_20\include;C:\Program Files (x86)\Java\jdk1.6.0_20\include\win32</IncludePath>
+    <LibraryPath>C:\LIBs\VTK-9.2.5\bin\lib;C:\wxWidgets-3.2.1\lib\vc_lib;$(VCInstallDir)PlatformSDK\lib;$(VCInstallDir)PlatformSDK\common\lib;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86;C:\Program Files (x86)\Business Objects\Common\3.5;C:\LIBs\JetVC\Intel;C:\LIBs\boost_1_44_0\stage\lib;C:\Program Files (x86)\Java\jdk1.6.0_20\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExecutablePath>C:\Program Files\VTK\bin;$(VCInstallDir)PlatformSDK\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\wxWidgets-3.0.5\include\msvc;C:\wxWidgets-3.0.5\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VCInstallDir)PlatformSDK\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\VTK\lib;C:\wxWidgets-3.0.5\lib\vc_x64_lib;$(VCInstallDir)PlatformSDK\lib\amd64;$(VSInstallDir)SDK\v2.0\lib\amd64;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\LIBs\VTK-9.2.5\bin\bin;$(VCInstallDir)PlatformSDK\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\wxWidgets-3.2.1\include\msvc;C:\wxWidgets-3.2.1\include;C:\LIBs\VTK-9.2.5\bin\include\vtk-9.2;C:\LIBs\eigen;$(VCInstallDir)PlatformSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\LIBs\VTK-9.2.5\bin\lib;C:\wxWidgets-3.2.1\lib\vc_x64_lib;$(VCInstallDir)PlatformSDK\lib\amd64;$(VSInstallDir)SDK\v2.0\lib\amd64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\wxWidgets-3.0.5\include\msvc;C:\wxWidgets-3.0.5\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VC_IncludePath);C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath);$(WindowsSDK_IncludePath)include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(VCInstallDir)PlatformSDK\common\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include;C:\Program Files (x86)\Java\jdk1.6.0_20\include;C:\Program Files (x86)\Java\jdk1.6.0_20\include\win32</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\VTK\lib;C:\wxWidgets-3.0.5\lib\vc_lib;$(VCInstallDir)PlatformSDK\lib;$(VCInstallDir)PlatformSDK\common\lib;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86;C:\Program Files (x86)\Business Objects\Common\3.5;C:\LIBs\JetVC\Intel;C:\LIBs\boost_1_44_0\stage\lib;C:\Program Files (x86)\Java\jdk1.6.0_20\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\wxWidgets-3.2.1\include\msvc;C:\wxWidgets-3.2.1\include;C:\LIBs\VTK-9.2.5\bin\include\vtk-9.2;C:\LIBs\eigen;$(VC_IncludePath);C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.10240.0\ucrt;$(IncludePath);$(WindowsSDK_IncludePath)include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(VCInstallDir)PlatformSDK\include;$(VCInstallDir)PlatformSDK\common\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Include;C:\Program Files (x86)\Java\jdk1.6.0_20\include;C:\Program Files (x86)\Java\jdk1.6.0_20\include\win32</IncludePath>
+    <LibraryPath>C:\LIBs\VTK-9.2.5\bin\lib;C:\wxWidgets-3.2.1\lib\vc_lib;$(VCInstallDir)PlatformSDK\lib;$(VCInstallDir)PlatformSDK\common\lib;C:\Program Files (x86)\Microsoft DirectX SDK (August 2007)\Lib\x86;C:\Program Files (x86)\Business Objects\Common\3.5;C:\LIBs\JetVC\Intel;C:\LIBs\boost_1_44_0\stage\lib;C:\Program Files (x86)\Java\jdk1.6.0_20\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <ExecutablePath>C:\Program Files\VTK\bin;$(VCInstallDir)PlatformSDK\bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\wxWidgets-3.0.5\include\msvc;C:\wxWidgets-3.0.5\include;C:\Program Files\VTK\include\vtk-8.0;C:\LIBs\eigen;$(VCInstallDir)PlatformSDK\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\VTK\lib;C:\wxWidgets-3.0.5\lib\vc_x64_lib;$(VCInstallDir)PlatformSDK\lib\amd64;$(VSInstallDir)SDK\v2.0\lib\amd64;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\LIBs\VTK-9.2.5\bin\bin;$(VCInstallDir)PlatformSDK\bin;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\wxWidgets-3.2.1\include\msvc;C:\wxWidgets-3.2.1\include;C:\LIBs\VTK-9.2.5\bin\include\vtk-9.2;C:\LIBs\eigen;$(VCInstallDir)PlatformSDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\LIBs\VTK-9.2.5\bin\lib;C:\wxWidgets-3.2.1\lib\vc_x64_lib;$(VCInstallDir)PlatformSDK\lib\amd64;$(VSInstallDir)SDK\v2.0\lib\amd64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxmsw30ud_core.lib;wxbase30ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxmsw32ud_core.lib;wxbase32ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-9.2.lib;vtkRenderingCore-9.2.lib;vtkViewsCore-9.2.lib;vtkFiltersCore-9.2.lib;vtkCommonDataModel-9.2.lib;vtkFiltersGeneral-9.2.lib;vtkFiltersGeometry-9.2.lib;vtkRenderingOpenGL2-9.2.lib;vtkCommonExecutionModel-9.2.lib;vtkRenderingAnnotation-9.2.lib;vtkRenderingContextOpenGL2-9.2.lib;vtkRenderingVolumeOpenGL2-9.2.lib;vtkInteractionStyle-9.2.lib;vtkRenderingFreeType-9.2.lib;vtkRenderingVolume-9.2.lib;vtkFiltersModeling-9.2.lib;vtkFiltersSources-9.2.lib;vtkChartsCore-9.2.lib;vtkRenderingContext2D-9.2.lib;vtkViewsContext2D-9.2.lib;vtkSys-9.2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,7 +123,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxmsw30ud_core.lib;wxbase30ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxmsw32ud_core.lib;wxbase32ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-9.2.lib;vtkRenderingCore-9.2.lib;vtkViewsCore-9.2.lib;vtkFiltersCore-9.2.lib;vtkCommonDataModel-9.2.lib;vtkFiltersGeneral-9.2.lib;vtkFiltersGeometry-9.2.lib;vtkRenderingOpenGL2-9.2.lib;vtkCommonExecutionModel-9.2.lib;vtkRenderingAnnotation-9.2.lib;vtkRenderingContextOpenGL2-9.2.lib;vtkRenderingVolumeOpenGL2-9.2.lib;vtkInteractionStyle-9.2.lib;vtkRenderingFreeType-9.2.lib;vtkRenderingVolume-9.2.lib;vtkFiltersModeling-9.2.lib;vtkFiltersSources-9.2.lib;vtkChartsCore-9.2.lib;vtkRenderingContext2D-9.2.lib;vtkViewsContext2D-9.2.lib;vtkSys-9.2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxmsw30u_core.lib;wxbase30u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxmsw32u_core.lib;wxbase32u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-9.2.lib;vtkRenderingCore-9.2.lib;vtkViewsCore-9.2.lib;vtkFiltersCore-9.2.lib;vtkCommonDataModel-9.2.lib;vtkFiltersGeneral-9.2.lib;vtkFiltersGeometry-9.2.lib;vtkRenderingOpenGL2-9.2.lib;vtkCommonExecutionModel-9.2.lib;vtkRenderingAnnotation-9.2.lib;vtkRenderingContextOpenGL2-9.2.lib;vtkRenderingVolumeOpenGL2-9.2.lib;vtkInteractionStyle-9.2.lib;vtkRenderingFreeType-9.2.lib;vtkRenderingVolume-9.2.lib;vtkFiltersModeling-9.2.lib;vtkFiltersSources-9.2.lib;vtkChartsCore-9.2.lib;vtkRenderingContext2D-9.2.lib;vtkViewsContext2D-9.2.lib;vtkSys-9.2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,7 +165,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wxmsw30u_core.lib;wxbase30u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-8.0.lib;vtkRenderingCore-8.0.lib;vtkViewsCore-8.0.lib;vtkFiltersCore-8.0.lib;vtkCommonDataModel-8.0.lib;vtkFiltersGeneral-8.0.lib;vtkFiltersGeometry-8.0.lib;vtkRenderingOpenGL2-8.0.lib;vtkCommonExecutionModel-8.0.lib;vtkRenderingAnnotation-8.0.lib;vtkRenderingContextOpenGL2-8.0.lib;vtkRenderingVolumeOpenGL2-8.0.lib;vtkInteractionStyle-8.0.lib;vtkRenderingFreeType-8.0.lib;vtkRenderingVolume-8.0.lib;vtkFiltersModeling-8.0.lib;vtkFiltersSources-8.0.lib;vtkChartsCore-8.0.lib;vtkRenderingContext2D-8.0.lib;vtkViewsContext2D-8.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wxmsw32u_core.lib;wxbase32u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;wininet.lib;vtkCommonCore-9.2.lib;vtkRenderingCore-9.2.lib;vtkViewsCore-9.2.lib;vtkFiltersCore-9.2.lib;vtkCommonDataModel-9.2.lib;vtkFiltersGeneral-9.2.lib;vtkFiltersGeometry-9.2.lib;vtkRenderingOpenGL2-9.2.lib;vtkCommonExecutionModel-9.2.lib;vtkRenderingAnnotation-9.2.lib;vtkRenderingContextOpenGL2-9.2.lib;vtkRenderingVolumeOpenGL2-9.2.lib;vtkInteractionStyle-9.2.lib;vtkRenderingFreeType-9.2.lib;vtkRenderingVolume-9.2.lib;vtkFiltersModeling-9.2.lib;vtkFiltersSources-9.2.lib;vtkChartsCore-9.2.lib;vtkRenderingContext2D-9.2.lib;vtkViewsContext2D-9.2.lib;vtkSys-9.2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

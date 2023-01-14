@@ -163,7 +163,7 @@ END_EVENT_TABLE()
 #include <vtkVersionMacros.h>
 
 //vtkCxxRevisionMacro(wxVTKRenderWindowInteractor, "$Revision$")
-vtkInstantiatorNewMacro(wxVTKRenderWindowInteractor)
+//vtkInstantiatorNewMacro(wxVTKRenderWindowInteractor)
 
 #if defined(__WXGTK__) && defined(USE_WXGLCANVAS)
 static int wxvtk_attributes[]={
@@ -205,7 +205,7 @@ wxVTKRenderWindowInteractor::wxVTKRenderWindowInteractor()
 #endif
   this->RenderWindow = NULL;
   this->SetRenderWindow(vtkRenderWindow::New());
-  this->RenderWindow->Delete();
+  if (RenderWindow) RenderWindow->Delete();
 }
 //---------------------------------------------------------------------------
 wxVTKRenderWindowInteractor::wxVTKRenderWindowInteractor(wxWindow *parent,
@@ -240,7 +240,7 @@ wxVTKRenderWindowInteractor::wxVTKRenderWindowInteractor(wxWindow *parent,
 #endif
   this->RenderWindow = NULL;
   this->SetRenderWindow(vtkRenderWindow::New());
-  this->RenderWindow->Delete();
+  if (RenderWindow) RenderWindow->Delete();
 #ifdef __WXMAC__
   // On Mac (Carbon) we don't get notified of the initial window size with an EVT_SIZE event,
   // so we update the size information of the interactor/renderwindow here
