@@ -43,13 +43,16 @@ namespace KKR
 	{
 		//const double eta = 1.56;
 		const double eta = 4. * M_PI / std::pow(m_cellVolume, 2. / 3.);
+		const double inveta = 1. / eta;
+		const double invCellVolume = 1. / m_cellVolume;
 
 		const std::complex<double> kappa((E >= 0 ? sqrt(2. * E) : 0), (E < 0 ? sqrt(-2. * E) : 0));
 
 		const std::complex<double> kappamL = std::pow(kappa, -L);
 		const std::complex<double> I(0, 1);
 		const std::complex<double> iL = std::pow(I, L);
-		const double EpEta = 2. * E / eta;
+		const double twoE = 2. * E;
+		const double EpEta = twoE / eta;
 
 
 		/*
@@ -71,7 +74,7 @@ namespace KKR
 			const Vector3D<double> kn = Kn + k;
 			const double kn2 = kn * kn;
 			const double kn_length = sqrt(kn2);
-			const double Eminuskn2 = 2. * E - kn2;
+			const double Eminuskn2 = twoE - kn2;
 
 			const double theta = kn.getTheta();
 			const double phi = kn.getPhi();
@@ -106,17 +109,17 @@ namespace KKR
 			const Vector3D<double> kn = Kn + k;
 			const double kn2 = kn * kn;
 			const double kn_length = sqrt(kn2);
-			const double Eminuskn2 = 2. * E - kn2;
+			const double Eminuskn2 = twoE - kn2;
 
 			const double theta = kn.getTheta();
 			const double phi = kn.getPhi();
 
 			const std::complex<double> Y = SpecialFunctions::Legendre::Y(L, M, theta, phi);
 
-			D1 += std::pow(kn_length, L) * std::exp(-kn2 / eta) / Eminuskn2 * Y;
+			D1 += std::pow(kn_length, L) * std::exp(-kn2 * inveta) / Eminuskn2 * Y;
 		}
 
-		D1 *= 4. * M_PI / m_cellVolume * kappamL * std::exp(EpEta);
+		D1 *= 4. * M_PI * invCellVolume * kappamL * std::exp(EpEta);
 
 
 		// **************** second term ******************************************************************************************
@@ -166,7 +169,7 @@ namespace KKR
 
 			for (int s = 0; s < 16; ++s)
 			{
-				const double term = std::pow(EpEta, s) / (2. * s - 1.) / coeffs.Factorial(s);
+				const double term = std::pow(EpEta, s) / ((2. * s - 1.) * coeffs.Factorial(s));
 				D3 += term;
 				if (abs(term) < 1E-13) break;
 			}
