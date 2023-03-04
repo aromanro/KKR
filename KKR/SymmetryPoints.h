@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include <map>
+#include <unordered_map>
 
 namespace KKR
 {
@@ -40,8 +40,7 @@ namespace KKR
 	public:
 		SymmetryPoints();
 
-		std::map<std::string, SymmetryPoint> symmetryPoints;
-
+		std::unordered_map<std::string, SymmetryPoint> symmetryPoints;
 
 		std::vector<Vector3D<double>> GeneratePoints(const std::vector<std::string>& path, unsigned int nrPoints, std::vector<unsigned int>& symmetryPointsPositions);
 	};
