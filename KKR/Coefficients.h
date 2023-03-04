@@ -5,7 +5,7 @@
 
 #include <array>
 #include <tuple>
-#include <map>
+#include <unordered_map>
 
 namespace KKR
 {
@@ -14,6 +14,26 @@ namespace KKR
 	// you get all the needed ones recursively
 	// since I need them for low L values for the purpose of the blog projects, this method should do
 	// they will be calculated once and cached, so there is no big performance penalty, either
+
+	// this one is here just to be able to use an unordered_map with a tuple of integers as a key
+	template <typename... Tp> class TupleHash {
+	public:
+		size_t operator()(const std::tuple<Tp...>& t) const
+		{
+			size_t res = 1;
+			std::apply([&res](auto&& ... args) { 
+				
+				auto compute = [&res](const auto& x) {
+					res = 31 * res + x;
+				};
+
+				(compute(args), ...);
+				
+				}, t);
+
+			return res;
+		}
+	};
 
 	class Coefficients
 	{
@@ -152,7 +172,7 @@ namespace KKR
 	protected:
 		static std::array<unsigned long long int, 21> factorialsTable;
 
-		std::map<std::tuple<int, int, int, int, int>, double> coefficients;
+		std::unordered_map<std::tuple<int, int, int, int, int>, double, TupleHash<int, int, int, int, int>> coefficients;
 	};
 
 }

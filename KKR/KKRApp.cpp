@@ -1,9 +1,7 @@
 #include "KKRApp.h"
 #include "KKRFrame.h"
 
-
 wxIMPLEMENT_APP(KKRApp);
-
 
 bool KKRApp::OnInit()
 {
