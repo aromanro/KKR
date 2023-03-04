@@ -40,9 +40,10 @@ namespace KKR
 	public:
 		SymmetryPoints();
 
-		std::unordered_map<std::string, SymmetryPoint> symmetryPoints;
-
 		std::vector<Vector3D<double>> GeneratePoints(const std::vector<std::string>& path, unsigned int nrPoints, std::vector<unsigned int>& symmetryPointsPositions);
+
+	protected:
+		std::unordered_map<std::string, SymmetryPoint> symmetryPoints;
 	};
 
 }
