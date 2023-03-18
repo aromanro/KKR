@@ -22,13 +22,11 @@ namespace KKR
 		{
 			size_t res = 1;
 			std::apply([&res](auto&& ... args) { 
-				
 				auto compute = [&res](const auto& x) {
 					res = 31 * res + x;
 				};
 
 				(compute(args), ...);
-				
 				}, t);
 
 			return res;
