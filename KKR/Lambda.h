@@ -47,9 +47,9 @@ namespace KKR
 		}
 
 		bool IsCloseToPole(double E, const Vector3D<double>& k, double limit, const std::vector<double>& ratios, double limit2 = 1E-10) const;
-		std::complex<double> D(double E, const Vector3D<double>& k, int L, int M, const Coefficients& coeffs) const;
-		inline std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> ComputeDmap(double E, const Vector3D<double>& k, const Coefficients& coeffs);
-		void Compute(double E, const Vector3D<double>& k, const std::vector<double>& ratios, const Coefficients& coeffs);
+		std::complex<double> D(double E, const Vector3D<double>& k, int L, int M, const CG::Coefficients& coeffs) const;
+		inline std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> ComputeDmap(double E, const Vector3D<double>& k, const CG::Coefficients& coeffs);
+		void Compute(double E, const Vector3D<double>& k, const std::vector<double>& ratios, const CG::Coefficients& coeffs);
 
 		std::complex<double> Determinant() const
 		{

@@ -39,7 +39,7 @@ namespace KKR
 	}
 
 
-	std::complex<double> Lambda::D(double E, const Vector3D<double>& k, int L, int M, const Coefficients& coeffs) const
+	std::complex<double> Lambda::D(double E, const Vector3D<double>& k, int L, int M, const CG::Coefficients& coeffs) const
 	{
 		//const double eta = 1.56;
 		const double eta = 4. * M_PI / std::pow(m_cellVolume, 2. / 3.);
@@ -181,7 +181,7 @@ namespace KKR
 	}
 
 
-	inline std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> Lambda::ComputeDmap(double E, const Vector3D<double>& k, const Coefficients& coeffs)
+	inline std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> Lambda::ComputeDmap(double E, const Vector3D<double>& k, const CG::Coefficients& coeffs)
 	{
 		std::unordered_map<std::pair<int, int>, std::complex<double>, PairHash<int, int>> Dmap;
 		for (int L = 0; L <= 2 * m_lMax; ++L)
@@ -208,7 +208,7 @@ namespace KKR
 		return Dmap;
 	}
 
-	void Lambda::Compute(double E, const Vector3D<double>& k, const std::vector<double>& ratios, const Coefficients& coeffs)
+	void Lambda::Compute(double E, const Vector3D<double>& k, const std::vector<double>& ratios, const CG::Coefficients& coeffs)
 	{
 		const std::complex<double> kappa((E >= 0 ? sqrt(2. * E) : 0), (E < 0 ? sqrt(-2. * E) : 0));
 		const std::complex<double> kappaR = kappa * m_R;

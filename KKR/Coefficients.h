@@ -7,7 +7,7 @@
 #include <tuple>
 #include <unordered_map>
 
-namespace KKR
+namespace CG
 {
 
 	// Typically those are done by starting on top or bottom of the 'ladder' and by applying ladder operators 
@@ -68,8 +68,8 @@ namespace KKR
 
 			double val = 0;
 
-			const double limMin = std::max(std::max(j2 - j3 - m1, j1 - j3 + m2), 0.);
-			const double limMax = std::min(j2 + m2, std::min(j1 - m1, j1 + j2 - j3));
+			const double limMin = std::max<>(std::max<>(j2 - j3 - m1, j1 - j3 + m2), 0.);
+			const double limMax = std::min<>(j2 + m2, std::min<>(j1 - m1, j1 + j2 - j3));
 			for (long long int k = static_cast<long long int>(limMin); k <= limMax; ++k)
 			{
 				const double t1 = j1 + j2 - j3 - k;

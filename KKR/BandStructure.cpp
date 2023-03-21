@@ -111,7 +111,7 @@ namespace KKR
 	{
 		res.resize(kpoints.size());
 
-		Coefficients coeffs;
+		CG::Coefficients coeffs;
 		coeffs.PrecalculateCoefficients(lMax);
 
 		int step = ceil(static_cast<double>(kpoints.size()) / options.nrThreads);

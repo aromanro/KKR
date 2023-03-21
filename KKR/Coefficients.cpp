@@ -1,6 +1,6 @@
 #include "Coefficients.h"
 
-namespace KKR
+namespace CG
 {
 	constexpr unsigned long long int factorial(unsigned long int n)
 	{
