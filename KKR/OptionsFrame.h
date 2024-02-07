@@ -20,7 +20,7 @@
 class OptionsFrame : public wxDialog
 {
 public:
-	OptionsFrame(const wxString& title, wxWindow* parent = NULL);
+	OptionsFrame(const wxString& title, wxWindow* parent = nullptr);
 
 	Options options;
 	void CreateControls();

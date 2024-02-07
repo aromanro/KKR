@@ -31,7 +31,7 @@ wxEND_EVENT_TABLE()
 
 
 KKRFrame::KKRFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
-	: wxFrame(NULL, wxID_ANY, title, pos, size),
+	: wxFrame(nullptr, wxID_ANY, title, pos, size),
 	timer(this, 101),
 	theThread(computeOptions, this),
 	runningThreads(0)

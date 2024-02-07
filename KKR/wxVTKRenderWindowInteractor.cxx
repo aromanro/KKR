@@ -204,7 +204,7 @@ wxVTKRenderWindowInteractor::wxVTKRenderWindowInteractor()
 #if defined(__WXGTK__) && defined(USE_WXGLCANVAS)
 	this->context = new wxGLContext(this);
 #endif
-	this->RenderWindow = NULL;
+	this->RenderWindow = nullptr;
 	vtkRenderWindow* renWin = vtkRenderWindow::New();
 	this->SetRenderWindow(renWin);
 	if (RenderWindow) RenderWindow->Delete();
@@ -240,7 +240,7 @@ wxVTKRenderWindowInteractor::wxVTKRenderWindowInteractor(wxWindow* parent,
 #if defined(__WXGTK__) && defined(USE_WXGLCANVAS)
 	this->context = new wxGLContext(this);
 #endif
-	this->RenderWindow = NULL;
+	this->RenderWindow = nullptr;
 	vtkRenderWindow* renWin = vtkRenderWindow::New();
 	this->SetRenderWindow(renWin);
 	if (RenderWindow) RenderWindow->Delete();
@@ -253,8 +253,8 @@ wxVTKRenderWindowInteractor::wxVTKRenderWindowInteractor(wxWindow* parent,
 //---------------------------------------------------------------------------
 wxVTKRenderWindowInteractor::~wxVTKRenderWindowInteractor()
 {
-	SetRenderWindow(NULL);
-	SetInteractorStyle(NULL);
+	SetRenderWindow(nullptr);
+	SetInteractorStyle(nullptr);
 #if defined(__WXGTK__) && defined(USE_WXGLCANVAS)
 	delete this->context;
 #endif
@@ -393,7 +393,7 @@ void wxVTKRenderWindowInteractor::OnTimer(wxTimerEvent& WXUNUSED(event))
 	int timerId = this->GetCurrentTimerId();
 	this->InvokeEvent(vtkCommand::TimerEvent, &timerId);
 #else
-	this->InvokeEvent(vtkCommand::TimerEvent, NULL);
+	this->InvokeEvent(vtkCommand::TimerEvent, nullptr);
 #endif
 #else
 	// old style
@@ -426,7 +426,7 @@ long wxVTKRenderWindowInteractor::GetHandleHack()
 #if defined(__WXCOCOA__) && !wxCHECK_VERSION(2, 9, 0)
    // Here is how to find the NSWindow
 	wxTopLevelWindow* toplevel = dynamic_cast<wxTopLevelWindow*>(wxGetTopLevelParent(this));
-	if (toplevel != NULL)
+	if (toplevel != nullptr)
 	{
 		handle_tmp = (long long int)toplevel->GetNSWindow();
 	}
@@ -519,7 +519,7 @@ void wxVTKRenderWindowInteractor::OnSize(wxSizeEvent& WXUNUSED(event))
 	}
 
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
-	InvokeEvent(vtkCommand::ConfigureEvent, NULL);
+	InvokeEvent(vtkCommand::ConfigureEvent, nullptr);
 #endif
 	//this will check for Handle
 	//Render();
@@ -533,9 +533,9 @@ void wxVTKRenderWindowInteractor::OnMotion(wxMouseEvent& event)
 	}
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 	SetEventInformationFlipY(event.GetX(), event.GetY(),
-		event.ControlDown(), event.ShiftDown(), '\0', 0, NULL);
+		event.ControlDown(), event.ShiftDown(), '\0', 0, nullptr);
 
-	InvokeEvent(vtkCommand::MouseMoveEvent, NULL);
+	InvokeEvent(vtkCommand::MouseMoveEvent, nullptr);
 #else
 	InteractorStyle->OnMouseMove(event.ControlDown(), event.ShiftDown(),
 		event.GetX(), Size[1] - event.GetY() - 1);
@@ -553,9 +553,9 @@ void wxVTKRenderWindowInteractor::OnEnter(wxMouseEvent& event)
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 	// new style
 	SetEventInformationFlipY(event.GetX(), event.GetY(),
-		event.ControlDown(), event.ShiftDown(), '\0', 0, NULL);
+		event.ControlDown(), event.ShiftDown(), '\0', 0, nullptr);
 
-	InvokeEvent(vtkCommand::EnterEvent, NULL);
+	InvokeEvent(vtkCommand::EnterEvent, nullptr);
 #else
 	// old style
 	InteractorStyle->OnEnter(event.ControlDown(), event.ShiftDown(),
@@ -573,9 +573,9 @@ void wxVTKRenderWindowInteractor::OnLeave(wxMouseEvent& event)
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 	// new style
 	SetEventInformationFlipY(event.GetX(), event.GetY(),
-		event.ControlDown(), event.ShiftDown(), '\0', 0, NULL);
+		event.ControlDown(), event.ShiftDown(), '\0', 0, nullptr);
 
-	InvokeEvent(vtkCommand::LeaveEvent, NULL);
+	InvokeEvent(vtkCommand::LeaveEvent, nullptr);
 #else
 	// old style
 	InteractorStyle->OnLeave(event.ControlDown(), event.ShiftDown(),
@@ -604,8 +604,8 @@ void wxVTKRenderWindowInteractor::OnKeyDown(wxKeyEvent& event)
 	// so we retrieve the mouse position explicitly and pass it along
 	wxPoint mousePos = ScreenToClient(wxGetMousePosition());
 	SetEventInformationFlipY(mousePos.x, mousePos.y,
-		event.ControlDown(), event.ShiftDown(), key, 0, NULL);
-	InvokeEvent(vtkCommand::KeyPressEvent, NULL);
+		event.ControlDown(), event.ShiftDown(), key, 0, nullptr);
+	InvokeEvent(vtkCommand::KeyPressEvent, nullptr);
 #else
 	InteractorStyle->OnKeyDown(event.ControlDown(), event.ShiftDown(),
 		event.GetKeyCode(), 1);
@@ -634,8 +634,8 @@ void wxVTKRenderWindowInteractor::OnKeyUp(wxKeyEvent& event)
 	// so we retrieve the mouse position explicitly and pass it along
 	wxPoint mousePos = ScreenToClient(wxGetMousePosition());
 	SetEventInformationFlipY(mousePos.x, mousePos.y,
-		event.ControlDown(), event.ShiftDown(), key, 0, NULL);
-	InvokeEvent(vtkCommand::KeyReleaseEvent, NULL);
+		event.ControlDown(), event.ShiftDown(), key, 0, nullptr);
+	InvokeEvent(vtkCommand::KeyReleaseEvent, nullptr);
 #else
 	InteractorStyle->OnKeyUp(event.ControlDown(), event.ShiftDown(),
 		event.GetKeyCode(), 1);
@@ -665,8 +665,8 @@ void wxVTKRenderWindowInteractor::OnChar(wxKeyEvent& event)
 	// so we retrieve the mouse position explicitly and pass it along
 	wxPoint mousePos = ScreenToClient(wxGetMousePosition());
 	SetEventInformationFlipY(mousePos.x, mousePos.y,
-		event.ControlDown(), event.ShiftDown(), key, 0, NULL);
-	InvokeEvent(vtkCommand::CharEvent, NULL);
+		event.ControlDown(), event.ShiftDown(), key, 0, nullptr);
+	InvokeEvent(vtkCommand::CharEvent, nullptr);
 #endif
 	event.Skip();
 }
@@ -687,14 +687,14 @@ void wxVTKRenderWindowInteractor::OnButtonDown(wxMouseEvent& event)
 
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 	SetEventInformationFlipY(event.GetX(), event.GetY(),
-		event.ControlDown(), event.ShiftDown(), '\0', 0, NULL);
+		event.ControlDown(), event.ShiftDown(), '\0', 0, nullptr);
 #endif
 
 	if (event.RightDown())
 	{
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 		// new style
-		InvokeEvent(vtkCommand::RightButtonPressEvent, NULL);
+		InvokeEvent(vtkCommand::RightButtonPressEvent, nullptr);
 #else            
 		// old style
 		InteractorStyle->OnRightButtonDown(event.ControlDown(), event.ShiftDown(),
@@ -705,7 +705,7 @@ void wxVTKRenderWindowInteractor::OnButtonDown(wxMouseEvent& event)
 	{
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 		// new style
-		InvokeEvent(vtkCommand::LeftButtonPressEvent, NULL);
+		InvokeEvent(vtkCommand::LeftButtonPressEvent, nullptr);
 #else            
 		// old style
 		InteractorStyle->OnLeftButtonDown(event.ControlDown(), event.ShiftDown(),
@@ -716,7 +716,7 @@ void wxVTKRenderWindowInteractor::OnButtonDown(wxMouseEvent& event)
 	{
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 		// new style
-		InvokeEvent(vtkCommand::MiddleButtonPressEvent, NULL);
+		InvokeEvent(vtkCommand::MiddleButtonPressEvent, nullptr);
 #else            
 		// old style
 		InteractorStyle->OnMiddleButtonDown(event.ControlDown(), event.ShiftDown(),
@@ -749,14 +749,14 @@ void wxVTKRenderWindowInteractor::OnButtonUp(wxMouseEvent& event)
 
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 	SetEventInformationFlipY(event.GetX(), event.GetY(),
-		event.ControlDown(), event.ShiftDown(), '\0', 0, NULL);
+		event.ControlDown(), event.ShiftDown(), '\0', 0, nullptr);
 #endif
 
 	if (ActiveButton == wxEVT_RIGHT_DOWN)
 	{
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 		// new style
-		InvokeEvent(vtkCommand::RightButtonReleaseEvent, NULL);
+		InvokeEvent(vtkCommand::RightButtonReleaseEvent, nullptr);
 #else            
 		// old style
 		InteractorStyle->OnRightButtonUp(event.ControlDown(), event.ShiftDown(),
@@ -767,7 +767,7 @@ void wxVTKRenderWindowInteractor::OnButtonUp(wxMouseEvent& event)
 	{
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 		// new style
-		InvokeEvent(vtkCommand::LeftButtonReleaseEvent, NULL);
+		InvokeEvent(vtkCommand::LeftButtonReleaseEvent, nullptr);
 #else            
 		// old style
 		InteractorStyle->OnLeftButtonUp(event.ControlDown(), event.ShiftDown(),
@@ -778,7 +778,7 @@ void wxVTKRenderWindowInteractor::OnButtonUp(wxMouseEvent& event)
 	{
 #if VTK_MAJOR_VERSION > 4 || (VTK_MAJOR_VERSION == 4 && VTK_MINOR_VERSION > 0)
 		// new style
-		InvokeEvent(vtkCommand::MiddleButtonReleaseEvent, NULL);
+		InvokeEvent(vtkCommand::MiddleButtonReleaseEvent, nullptr);
 #else            
 		// old style
 		InteractorStyle->OnMiddleButtonUp(event.ControlDown(), event.ShiftDown(),
@@ -801,16 +801,16 @@ void wxVTKRenderWindowInteractor::OnMouseWheel(wxMouseEvent& event)
   //Set vtk event information ... The numebr of wheel rotations is stored in
   //the x varible.  y varible is zero
 	SetEventInformationFlipY(event.GetX(), event.GetY(),
-		event.ControlDown(), event.ShiftDown(), '\0', 0, NULL);
+		event.ControlDown(), event.ShiftDown(), '\0', 0, nullptr);
 	if (event.GetWheelRotation() > 0)
 	{
 		//Send event to VTK
-		InvokeEvent(vtkCommand::MouseWheelForwardEvent, NULL);
+		InvokeEvent(vtkCommand::MouseWheelForwardEvent, nullptr);
 	}
 	else
 	{
 		//Send event to VTK
-		InvokeEvent(vtkCommand::MouseWheelBackwardEvent, NULL);
+		InvokeEvent(vtkCommand::MouseWheelBackwardEvent, nullptr);
 	}
 #endif	
 }
