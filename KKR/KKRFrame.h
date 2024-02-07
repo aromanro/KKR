@@ -53,7 +53,7 @@ class KKRFrame : public wxFrame
 {
 public:
 	KKRFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
-	~KKRFrame();
+	~KKRFrame() override;
 
 
 	std::atomic_int runningThreads;

@@ -51,10 +51,10 @@ public:
 
 	std::vector<std::vector<std::string>> paths;
 
-protected:
+private:
 	void Open();
 	void Close();
 
-	wxFileConfig *m_fileconfig;
+	wxFileConfig *m_fileconfig = nullptr;
 };
 

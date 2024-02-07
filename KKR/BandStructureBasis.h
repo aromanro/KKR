@@ -20,7 +20,6 @@ public:
 	BandStructureBasis(double a = 6.8219117 /*4.046 / 0.5291772106712*/, double rmax = -1./*sqrt(2.) * 4.046 / 0.5291772106712 / 4. * 0.39*/); // commented out, some 'experimental' values for Al
 
 	SymmetryPoints symmetryPoints;
-
 	std::vector<unsigned int> symmetryPointsPositions;
 
 	virtual void Initialize(std::vector<std::string> path, unsigned int nrPoints = 600);

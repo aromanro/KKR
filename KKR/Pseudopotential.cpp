@@ -9,16 +9,6 @@
 
 namespace KKR {
 
-	Pseudopotential::Pseudopotential()
-		: Z(0), Zion(0), maxRadius(0), valid(false)
-	{
-	}
-
-
-	Pseudopotential::~Pseudopotential()
-	{
-	}
-
 	bool Pseudopotential::Load(const std::string& name)
 	{
 		std::ifstream file(name);

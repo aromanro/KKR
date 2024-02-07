@@ -10,8 +10,7 @@ namespace KKR
 {
 
 	BandStructureBasis::BandStructureBasis(double a, double rmax)
-		: 
-		m_a(a), m_Rmax(rmax)
+		: m_a(a), m_Rmax(rmax)
 	{
 		// if the passed value was zero or negative, make them touching spheres
 		if (m_Rmax <= 0)
@@ -30,13 +29,17 @@ namespace KKR
 
 		// the basis vectors for the reciprocal space (without the 2 pi / a)
 
-		const Vector3D<double> b1(-1, 1, 1), b2(1, -1, 1), b3(1, 1, -1);
+		const Vector3D b1(-1., 1., 1.);
+		const Vector3D b2(1., -1., 1.);
+		const Vector3D b3(1., 1., -1.);
 
 		// you can also get them from the Bravais lattice vectors
 		// like this:
 
 		// Bravais lattice vectors for fcc (they should be multiplied by the lattice constant):
-		const Vector3D<double> a1(0, 0.5, 0.5), a2(0.5, 0, 0.5), a3(0.5, 0.5, 0);
+		const Vector3D a1(0., 0.5, 0.5);
+		const Vector3D a2(0.5, 0., 0.5);
+		const Vector3D a3(0.5, 0.5, 0.);
 
 		// the volume of the cell is a1 * (a2 % a3) which gives 1/4 (multiplied with a^3, of course)
 
@@ -52,7 +55,7 @@ namespace KKR
 			for (int j = -maxSize; j <= maxSize; ++j)
 				for (int k = -maxSize; k <= maxSize; ++k)
 				{
-					const Vector3D<double> vect = b1 * i + b2 * j + b3 * k; // reciprocal lattice vector
+					const Vector3D vect(b1 * i + b2 * j + b3 * k); // reciprocal lattice vector
 
 					const double vectSquared = vect * vect;
 					if (vectSquared <= maxSize2 + 0.001) // if it's under the cutoff length, add it
@@ -67,7 +70,7 @@ namespace KKR
 				{
 					if (0 == i && 0 == j && 0 == k) continue; // not needed for D(2)
 
-					const Vector3D<double> vect = a1 * i + a2 * j + a3 * k; // lattice vector in real space
+					const Vector3D vect(a1 * i + a2 * j + a3 * k); // lattice vector in real space
 
 					const double vectSquared = vect * vect;
 					if (vectSquared <= maxSize2 + 0.001) // if it's under the cutoff length, add it
@@ -104,21 +107,18 @@ namespace KKR
 
 		const double recVectPre = 2. * M_PI / m_a;
 		// adjust 'basis' vectors
-		size_t size = basisVectors.size();
-		for (unsigned int i = 0; i < size; ++i)
-			basisVectors[i] *= recVectPre;
+		for (auto& bvec : basisVectors)
+			bvec *= recVectPre;
 
 		// adjust real space vectors
-		size = realVectors.size();
-		for (unsigned int i = 0; i < size; ++i)
-			realVectors[i] *= m_a;
+		for (auto& rvec : realVectors)
+			rvec *= m_a;
 
 		kpoints = symmetryPoints.GeneratePoints(m_path, nrPoints, symmetryPointsPositions);
 
 		// adjust kpoints
-		size = kpoints.size();
-		for (unsigned int i = 0; i < size; ++i)
-			kpoints[i] *= recVectPre;
+		for (auto& kpoint : kpoints)
+			kpoint *= recVectPre;
 	}
 
 }

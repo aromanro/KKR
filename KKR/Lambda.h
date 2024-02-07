@@ -57,7 +57,7 @@ namespace KKR
 			//return Lmat.fullPivLu().determinant();
 		}
 
-	protected:
+	private:
 		// technically the basis vectors are Ki + k, those here are only Ki
 		const std::vector<Vector3D<double>>& m_basisVectors;
 

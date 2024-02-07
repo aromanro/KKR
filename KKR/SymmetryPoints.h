@@ -13,8 +13,7 @@ namespace KKR
 	class SymmetryPoint
 	{
 	public:
-		SymmetryPoint() {}
-
+		SymmetryPoint() = default;
 		SymmetryPoint(const std::string& Name, const Vector3D<double> pos) : name(Name), position(pos) {}
 
 		SymmetryPoint(const SymmetryPoint& sym)
@@ -42,7 +41,7 @@ namespace KKR
 
 		std::vector<Vector3D<double>> GeneratePoints(const std::vector<std::string>& path, unsigned int nrPoints, std::vector<unsigned int>& symmetryPointsPositions);
 
-	protected:
+	private:
 		std::unordered_map<std::string, SymmetryPoint> symmetryPoints;
 	};
 

@@ -23,8 +23,7 @@ Options::Options()
 			{"G", "X", "W", "K", "L", "G"},
 			{"G", "X", "W", "K", "G", "L", "U", "W", "L", "K"},
 			{"G", "X", "U", "K", "G", "L", "W", "X"},
-		} },
-	m_fileconfig(nullptr)
+		} }
 {
 }
 
@@ -32,12 +31,12 @@ void Options::Open()
 {
 	if (m_fileconfig) return;
 
-	wxString dir = wxStandardPaths::Get().GetConfigDir() + wxFileName::GetPathSeparator();
+	const wxString dir = wxStandardPaths::Get().GetConfigDir() + wxFileName::GetPathSeparator();
 
 	if(!wxFileName::DirExists(dir))
 		wxFileName::Mkdir(dir, 0777, wxPATH_MKDIR_FULL);
 
-	wxString iniFilePath = dir + "KKR.ini";
+	const wxString iniFilePath = dir + "KKR.ini";
 
 	m_fileconfig = new wxFileConfig("KKR", wxEmptyString, iniFilePath);
 

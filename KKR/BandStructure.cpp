@@ -24,7 +24,6 @@ namespace KKR
 		if (step < 1) step = 1;
 		int nextPos;
 
-
 		for (int t = 0; t < options.nrThreads; ++t, startPos = nextPos)
 		{
 			if (t == options.nrThreads - 1) nextPos = numIntervals;

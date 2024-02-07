@@ -41,7 +41,7 @@ namespace KKR
 
 		std::vector<std::vector<double>> Compute(const std::atomic_bool& terminate, const Options& options);
 
-	protected:
+	private:
 		void ComputeSchrodinger(std::vector<std::future<void>>& tasks, Potential& potential, std::vector<std::vector<double>>& ratios, int numIntervals, int numerovGridNodes, int numerovIntervals, double deltaGrid, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options);
 		void ComputeBandstructure(std::vector<std::future<void>>& tasks, std::vector<std::vector<double>>& res, std::vector<std::vector<double>>& ratios, int numIntervals, double minE, double dE, int lMax, const std::atomic_bool& terminate, const Options& options, double smallMinLimit, double detLim, double ctgLimit) const;
 

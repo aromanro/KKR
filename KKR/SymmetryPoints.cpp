@@ -13,9 +13,6 @@ namespace KKR
 		symmetryPoints["U"] = SymmetryPoint("U", Vector3D<double>(1., 0.25, 0.25));
 	}
 
-
-
-
 	std::vector<Vector3D<double>> SymmetryPoints::GeneratePoints(const std::vector<std::string>& path, unsigned int nrPoints, std::vector<unsigned int>& symmetryPointsPositions)
 	{
 		std::vector<Vector3D<double>> result;
@@ -39,16 +36,16 @@ namespace KKR
 
 		for (unsigned int i = 1; i < path.size(); ++i)
 		{
-			const Vector3D<double> startPos = symmetryPoints[path[i - 1LL]].position;
-			const Vector3D<double> dif = symmetryPoints[path[i]].position - startPos;
+			const Vector3D startPos(symmetryPoints[path[i - 1LL]].position);
+			const Vector3D dif(symmetryPoints[path[i]].position - startPos);
 			const double difLength = dif.Length();
 
-			Vector3D<double> stepVec = dif / difLength * stepSize;
+			Vector3D stepVec(dif / difLength * stepSize);
 
 			if (1 == i) symmetryPointsPositions.push_back(0);
 			else symmetryPointsPositions.push_back(static_cast<unsigned int>(result.size() + 1));
 
-			for (Vector3D<double> pos = startPos; (pos - startPos).Length() < difLength; pos += stepVec)
+			for (Vector3D pos = startPos; (pos - startPos).Length() < difLength; pos += stepVec)
 				result.push_back(pos);
 		}
 

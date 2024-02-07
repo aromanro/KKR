@@ -38,7 +38,7 @@ namespace KKR {
 
 		inline static double GetBoundaryValueZero(double position, unsigned int l)
 		{
-			return pow(position, static_cast<size_t>(l) + 1);
+			return pow(position, l + 1.);
 		}
 
 		inline static double GetMaxRadiusIndex(double E, size_t maxIndex, double stepSize)
@@ -66,7 +66,7 @@ namespace KKR {
 			return true;
 		}
 
-	protected:
+	private:
 		const Potential& m_pot;
 	};
 
@@ -113,7 +113,7 @@ namespace KKR {
 			const int posInd = static_cast<int>(position);
 			const double realPosition = GetPosition(posInd);
 
-			return pow(realPosition, static_cast<size_t>(l) + 1) * exp(-static_cast<int>(position) * m_delta * 0.5);
+			return pow(realPosition, l + 1.) * exp(-position * m_delta * 0.5);
 		}
 
 
@@ -177,7 +177,8 @@ namespace KKR {
 		{
 			return false;
 		}
-	protected:
+
+	private:
 		inline double GetPosition(size_t posIndex) const
 		{
 			return Rp * (exp(posIndex * m_delta) - 1.);
@@ -259,7 +260,7 @@ namespace KKR {
 
 		NumerovFunction function;
 
-	protected:
+	private:
 		// 2.13
 		inline double getU(double w, double funcVal) const
 		{

@@ -27,7 +27,7 @@ public:
 
 	std::vector<std::vector<double>> results;
 
-protected:
+private:
 	void Calculate();
 
 	std::thread mThread;

@@ -8,8 +8,7 @@ namespace KKR {
 	class Pseudopotential
 	{
 	public:
-		Pseudopotential();
-		~Pseudopotential();
+		Pseudopotential() = default;
 
 		bool Load(const std::string& name);
 
@@ -58,18 +57,18 @@ namespace KKR {
 			return VDumb(3, R, 2.675, 1.3905 * 0.5);
 		}
 
-	protected:
+	private:
 		void ComputeSpline();
 
 		double Interpolate(size_t interval, double x) const;
 		size_t GetIndex(double x) const;
 
-		unsigned int Z;
-		unsigned int Zion;
+		unsigned int Z = 0;
+		unsigned int Zion = 0;
 
-		bool valid;
+		bool valid = false;
 
-		double maxRadius;
+		double maxRadius = 0;
 
 		std::vector<double> position;
 		std::vector<double> pseudopotential;

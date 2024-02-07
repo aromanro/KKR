@@ -11,7 +11,7 @@ namespace KKR
 		// singular points of the free Green function:
 		for (const auto& Kn : m_basisVectors)
 		{
-			const Vector3D<double> kn = Kn + k;
+			const Vector3D kn(Kn + k);
 			const double kn2 = kn * kn;
 			const double Eminuskn2 = 2. * E - kn2;
 
@@ -106,7 +106,7 @@ namespace KKR
 		std::complex<double> D1(0, 0);
 		for (const auto& Kn : m_basisVectors)
 		{
-			const Vector3D<double> kn = Kn + k;
+			const Vector3D kn(Kn + k);
 			const double kn2 = kn * kn;
 			const double kn_length = sqrt(kn2);
 			const double Eminuskn2 = twoE - kn2;
