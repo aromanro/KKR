@@ -128,11 +128,15 @@ namespace KKR
 
 		double integral = 0;
 		double oldLength2 = 0;
+		const double twoLPlus1 = 2. * L + 1.;
 
 		for (const auto& Rn : m_realVectors)
 		{
 			const double rs2 = Rn * Rn;
 			const double rs = sqrt(rs2);
+			const double Ers2over2 = E * rs2 / 2.;
+			const double rs2eta4 = rs2 * eta / 4.;
+			
 
 			// the vectors are sorted by length
 			// calculate the integral only if the length changes
@@ -141,11 +145,11 @@ namespace KKR
 				integral = 0;
 				for (int m = 0; m < 16; ++m)
 				{
-					const double term = std::pow(E * rs2 / 2., m) / coeffs.Factorial(m) * SpecialFunctions::Gamma(0.5 + L - m, rs2 * eta / 4.);
+					const double term = std::pow(Ers2over2, m) / coeffs.Factorial(m) * SpecialFunctions::Gamma(0.5 + L - m, rs2eta4);
 					integral += term;
 					if (abs(term) < 1E-13) break;
 				}
-				integral *= 0.5 / std::pow(rs, 2. * L + 1.);
+				integral *= 0.5 / std::pow(rs, twoLPlus1);
 			}
 
 			const double theta = Rn.getTheta();
@@ -220,16 +224,29 @@ namespace KKR
 
 		int i = 0; // the index for l, m
 		for (int l = 0; l <= m_lMax; ++l)
+		{
+			const auto nderiv = SpecialFunctions::Bessel::nderiv(l, kappaR);
+			const auto jderiv = SpecialFunctions::Bessel::jderiv(l, kappaR);
+			const auto nval = SpecialFunctions::Bessel::n(l, kappaR);
+			const auto jval = SpecialFunctions::Bessel::j(l, kappaR);
+			const auto kappanderiv = kappa * nderiv;
+			const auto kappajderiv = kappa * jderiv;
+
 			for (int m = -l; m <= l; ++m)
 			{
 				int j = i; // the index for lp, mp
 
 				for (int lp = l; lp <= m_lMax; ++lp)
+				{
+					const int lmlp = l - lp;
+					const int lplp = l + lp;
+
 					for (int mp = (lp == l ? m : -lp); mp <= lp; ++mp)
 					{
 						std::complex<double> A(0, 0);
+						const int mmp = m - mp;
 
-						for (int L = abs(l - lp); L <= l + lp; L += 2)
+						for (int L = abs(lmlp); L <= lplp; L += 2)
 						{
 							//const int sumL = L + l + lp;
 							//if (sumL % 2) continue; // must be an even integer, no need to check it, the for above ensures the sum is even
@@ -237,18 +254,19 @@ namespace KKR
 							const double C = coeffs.getCoefficient(l, lp, L, m, mp);
 							if (C != 0.)
 							{
-								const auto it = Dmap.find(std::make_pair(L, m - mp));
+								const auto it = Dmap.find(std::make_pair(L, mmp));
 								if (it != Dmap.end())
 									A += it->second * C;
 							}
 						}
-						A *= 4. * M_PI * std::pow(I, l - lp);
+
+						A *= 4. * M_PI * std::pow(I, lmlp);
 
 						if (i == j)
 						{
 							const double logDeriv = ratios[l] - m_oneOverR;
 
-							const std::complex<double> ctgPhaseShift = (SpecialFunctions::Bessel::nderiv(l, kappaR) * kappa - SpecialFunctions::Bessel::n(l, kappaR) * logDeriv) / (SpecialFunctions::Bessel::jderiv(l, kappaR) * kappa - SpecialFunctions::Bessel::j(l, kappaR) * logDeriv);
+							const std::complex<double> ctgPhaseShift = (kappanderiv - nval * logDeriv) / (kappajderiv - jval * logDeriv);
 							Lmat(i, i) = A + kappa * ctgPhaseShift;
 						}
 						else
@@ -259,9 +277,11 @@ namespace KKR
 
 						++j;
 					}
+				}
 
 				++i;
 			}
+		}
 	}
 
 }
