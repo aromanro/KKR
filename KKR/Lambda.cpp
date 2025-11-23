@@ -2,6 +2,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+#include <cassert>
+
 #include "Lambda.h"
 
 namespace KKR
