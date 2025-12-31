@@ -7,6 +7,15 @@ Korringa-Kohn-Rostoker (multiple scattering theory/Green's function method) band
 Cu band structure computation using a pseudopotential.
 Info on the Computational Physics Blog: https://compphys.go.ro/korringa-kohn-rostoker-method/
 
+### TOOLS
+
+The project compiles on Windows with Visual Studio 2026 (the code can be compiled with older versions starting with VS 2015, but it's currently maintained with VS 2026 and C++ 17 or higher).
+
+### LIBRARIES
+
+The program requires the typical VC++ runtime libraries.
+Additional libraries needed are VTK https://vtk.org/ and wxWidgets https://wxwidgets.org/.
+
 ### PROGRAM IN ACTION
 
 [![Program video](https://img.youtube.com/vi/IzzmkKVNXsg/0.jpg)](https://youtu.be/IzzmkKVNXsg)
